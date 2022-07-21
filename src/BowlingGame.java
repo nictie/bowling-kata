@@ -1,8 +1,11 @@
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
-public class BowlingGame {
+public class BowlingGame implements ScoreKeeper, ScoreCalculator {
+    private final ScreenModel screenModel;
     private Frame currentFrame;
+
+    public BowlingGame(ScreenModel screenModel) {
+
+        this.screenModel = screenModel;
+    }
 
     public void roll(int hitPins) {
 
@@ -10,17 +13,16 @@ public class BowlingGame {
             currentFrame = new Frame(1);
         }
         currentFrame = currentFrame.addRoll(hitPins);
+        screenModel.updateModel(this);
     }
 
-    public void applyTotalResult(Consumer<Integer> totalScoreConsumer) {
-        totalScoreConsumer.accept(currentFrame.getScore());
+    @Override
+    public void writeTo(ScreenModelImpl screenModel) {
+        screenModel.updateGameScore(calculateScore());
+        currentFrame.writeTo(screenModel);
     }
 
-    public void applyCurrentFrameResult(BiConsumer<Integer, Integer> scoreframeConsumer) {
-        scoreframeConsumer.accept(currentFrame.getNumber(), currentFrame.getScore());
-    }
-
-    public int getTotalScore() {
-        return currentFrame.getScore();
+    public int calculateScore() {
+        return currentFrame.calculateScore();
     }
 }

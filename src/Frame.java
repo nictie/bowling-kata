@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Frame {
+public class Frame implements ScoreKeeper, ScoreCalculator {
 
     private final int number;
     private List<Roll> rolls;
@@ -14,19 +14,24 @@ public class Frame {
 
     public Frame addRoll(int hitPins) {
 
-        rolls.add(new Roll(hitPins));
+        Roll roll = new Roll(number, rolls.size() + 1, hitPins);
+        rolls.add(roll);
         return this;
     }
 
-    public int getScore() {
+    @Override
+    public void writeTo(ScreenModelImpl screenModel) {
+
+        screenModel.updateFrameScore(number, calculateScore());
+        rolls.forEach(roll -> roll.writeTo(screenModel));
+    }
+
+    @Override
+    public int calculateScore() {
 
         final int[] result = { 0 };
-        rolls.forEach(roll -> result[0] = result[0] + roll.getScore());
+        rolls.forEach(roll -> result[0] = result[0] + roll.calculateScore());
         return result[0];
     }
 
-    public Integer getNumber() {
-
-        return number;
-    }
 }

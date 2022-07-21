@@ -1,12 +1,25 @@
-public final class Roll {
+public final class Roll implements ScoreKeeper, ScoreCalculator {
 
+    private final int number;
     private final int score;
+    private final int frameNumber;
 
-    public Roll(int score) {
+    public Roll(int frameNumber, int number, int score) {
+
+        this.frameNumber = frameNumber;
+        this.number = number;
         this.score = score;
     }
 
-    public int getScore() {
+    @Override
+    public void writeTo(ScreenModelImpl screenModel) {
+
+        screenModel.addScoreRollToFrame(frameNumber, number, score);
+    }
+
+    @Override
+    public int calculateScore() {
+
         return score;
     }
 }
