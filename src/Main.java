@@ -28,7 +28,7 @@ public class Main {
         assertEquals(1, bow.getTotalScore());
 
         bow.roll(4);
-        assertEquals(1, bow.getTotalScore());
+        assertEquals(5, bow.getTotalScore());
 
     }
 
