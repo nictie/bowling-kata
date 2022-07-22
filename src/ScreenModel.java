@@ -3,8 +3,6 @@ public interface ScreenModel {
 
     void updateModel(ScoreKeeper scoreKeeper);
 
-    void updateGameScore(int aTotalScore);
-
     void updateFrameScore(int number, int score);
 
     void addScoreRollToFrame(int frameNumber, int rollNumber, int score);

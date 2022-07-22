@@ -7,19 +7,12 @@ public class ScreenModelImpl implements ScreenModel {
     private final int[] frameScores;
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
-    private Integer totalScore;
 
     public ScreenModelImpl() {
 
         numberOfFrames = 10;
-        totalScore = NO_SCORE;
         frameScores = initFrameScores(numberOfFrames);
         rollsPerFrame = initRollsPerFrameScore(numberOfFrames);
-    }
-
-    public Integer getTotalScore() {
-
-        return totalScore;
     }
 
     @Override
@@ -45,12 +38,6 @@ public class ScreenModelImpl implements ScreenModel {
             result.put(i, new int[] { NO_SCORE, NO_SCORE });
         }
         return result;
-    }
-
-    @Override
-    public void updateGameScore(int aTotalScore) {
-
-        totalScore = aTotalScore;
     }
 
     @Override
@@ -82,19 +69,18 @@ public class ScreenModelImpl implements ScreenModel {
     public String toString() {
 
         return "ScreenModelImpl{" +
-                "totalScore=" + totalScore +
-                ", frameScores=" + Arrays.toString(frameScores) +
-                ", rollsPerFrame[0]=" + Arrays.toString( rollsPerFrame.get(0)) +
-                ", rollsPerFrame[1]=" + Arrays.toString( rollsPerFrame.get(1)) +
-                ", rollsPerFrame[2]=" + Arrays.toString( rollsPerFrame.get(2)) +
-                ", rollsPerFrame[3]=" + Arrays.toString( rollsPerFrame.get(3)) +
-                ", rollsPerFrame[4]=" + Arrays.toString( rollsPerFrame.get(4)) +
-                ", rollsPerFrame[5]=" + Arrays.toString( rollsPerFrame.get(5)) +
-                ", rollsPerFrame[6]=" + Arrays.toString( rollsPerFrame.get(6)) +
-                ", rollsPerFrame[7]=" + Arrays.toString( rollsPerFrame.get(7)) +
-                ", rollsPerFrame[8]=" + Arrays.toString( rollsPerFrame.get(8)) +
-                ", rollsPerFrame[9]=" + Arrays.toString( rollsPerFrame.get(9)) +
-                ", numberOfFrames=" + numberOfFrames +
+                "\nframeScores=" + Arrays.toString(frameScores) +
+                "\n, rollsPerFrame[0]=" + Arrays.toString( rollsPerFrame.get(0)) +
+                "\n, rollsPerFrame[1]=" + Arrays.toString( rollsPerFrame.get(1)) +
+                "\n, rollsPerFrame[2]=" + Arrays.toString( rollsPerFrame.get(2)) +
+                "\n, rollsPerFrame[3]=" + Arrays.toString( rollsPerFrame.get(3)) +
+                "\n, rollsPerFrame[4]=" + Arrays.toString( rollsPerFrame.get(4)) +
+                "\n, rollsPerFrame[5]=" + Arrays.toString( rollsPerFrame.get(5)) +
+                "\n, rollsPerFrame[6]=" + Arrays.toString( rollsPerFrame.get(6)) +
+                "\n, rollsPerFrame[7]=" + Arrays.toString( rollsPerFrame.get(7)) +
+                "\n, rollsPerFrame[8]=" + Arrays.toString( rollsPerFrame.get(8)) +
+                "\n, rollsPerFrame[9]=" + Arrays.toString( rollsPerFrame.get(9)) +
+                "\n, numberOfFrames=" + numberOfFrames +
                 '}';
     }
 }

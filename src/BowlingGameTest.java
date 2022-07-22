@@ -20,61 +20,59 @@ public class BowlingGameTest {
     @DisplayName("The screen model is initialized correctly.")
     void screenModel_initialized() {
 
-        assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(ScreenModel.NO_SCORE);
+        //assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(ScreenModel.NO_SCORE);
         assertThat(screenModel.getFrameScore(1)).as(screenModel.toString()).isEqualTo(ScreenModel.NO_SCORE);
         assertThat(screenModel.getRollScore(1, 1)).as(screenModel.toString()).isEqualTo(ScreenModel.NO_SCORE);
         assertThat(screenModel.getRollScore(1, 2)).as(screenModel.toString()).isEqualTo(ScreenModel.NO_SCORE);
     }
 
     @Test
-    @DisplayName("The first roll of the game is 1. The score of the frame and the total score should be 1.")
+    @DisplayName("Open: 1 - 1,x = 1")
     void open_first_roll_is_one() {
 
         bowlingGame.roll(1);
 
-        assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(1);
-        assertThat(screenModel.getFrameScore(1)).as(screenModel.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 1)).as(screenModel.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 2)).as(screenModel.toString()).isEqualTo(ScreenModel.NO_SCORE);
+        assertThat(screenModel.getRollScore(1, 1)).as(bowlingGame.toString()).isEqualTo(1);
+        assertThat(screenModel.getRollScore(1, 2)).as(bowlingGame.toString()).isEqualTo(ScreenModel.NO_SCORE);
+        assertThat(screenModel.getFrameScore(1)).as(bowlingGame.toString()).isEqualTo(1);
     }
 
     @Test
-    @DisplayName("The first roll of the game is 1 the second roll is 4. The score of the frame and the total score should be 5.")
+    @DisplayName("Open: 1 - 1,4 = 5")
     void open_second_roll_is_four() {
 
         bowlingGame.roll(1);
         bowlingGame.roll(4);
 
-        assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(5);
-        assertThat(screenModel.getFrameScore(1)).as(screenModel.toString()).isEqualTo(5);
-        assertThat(screenModel.getRollScore(1, 1)).as(screenModel.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 2)).as(screenModel.toString()).isEqualTo(4);
+        assertThat(screenModel.getRollScore(1, 1)).as(bowlingGame.toString()).isEqualTo(1);
+        assertThat(screenModel.getRollScore(1, 2)).as(bowlingGame.toString()).isEqualTo(4);
+        assertThat(screenModel.getFrameScore(1)).as(bowlingGame.toString()).isEqualTo(5);
     }
 
     @Test
-    @DisplayName(""
-            + "The first frame score is (1,9) per roll. "
-            + "The next frame score is (1/2) per roll"
-            + "The score of the frame and the total score should be 5.")
-    void spare_second_roll_is_four() {
+    @DisplayName("Spare - Add bonus. "
+            + "1 - (1,9) = 11"
+            + "2 - (1,2) = 14")
+    void spare() {
 
         bowlingGame.roll(1);
         bowlingGame.roll(9);
 
-        assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(10);
-        assertThat(screenModel.getFrameScore(1)).as(screenModel.toString()).isEqualTo(10);
-        assertThat(screenModel.getRollScore(1, 1)).as(screenModel.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 2)).as(screenModel.toString()).isEqualTo(9);
+        assertThat(screenModel.getRollScore(1, 1)).as(bowlingGame.toString()).isEqualTo(1);
+        assertThat(screenModel.getRollScore(1, 2)).as(bowlingGame.toString()).isEqualTo(9);
+        assertThat(screenModel.getFrameScore(1)).as(bowlingGame.toString()).isEqualTo(10);
 
-        bowlingGame.roll(1);
         bowlingGame.roll(2);
+        bowlingGame.roll(3);
 
         // add score of next frame
-        assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(13);
-        assertThat(screenModel.getFrameScore(1)).as(screenModel.toString()).isEqualTo(13);
-        assertThat(screenModel.getRollScore(1, 1)).as(screenModel.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 2)).as(screenModel.toString()).isEqualTo(9);
+        assertThat(screenModel.getRollScore(1, 1)).as(bowlingGame.toString()).isEqualTo(1);
+        assertThat(screenModel.getRollScore(1, 2)).as(bowlingGame.toString()).isEqualTo(9);
+        assertThat(screenModel.getFrameScore(1)).as(bowlingGame.toString()).isEqualTo(12);
 
+        assertThat(screenModel.getRollScore(2, 1)).as(bowlingGame.toString()).isEqualTo(2);
+        assertThat(screenModel.getRollScore(2, 2)).as(bowlingGame.toString()).isEqualTo(3);
+        assertThat(screenModel.getFrameScore(2)).as(bowlingGame.toString()).isEqualTo(17);
     }
 
 }

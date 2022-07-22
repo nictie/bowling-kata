@@ -1,28 +1,46 @@
-public class BowlingGame implements ScoreKeeper, ScoreCalculator {
-    private final ScreenModel screenModel;
-    private Frame currentFrame;
+import java.util.HashSet;
+import java.util.Set;
 
-    public BowlingGame(ScreenModel screenModel) {
+import org.jetbrains.annotations.NotNull;
+
+public class BowlingGame implements ScoreKeeper {
+    private final ScreenModel screenModel;
+    private final Set<AbstractFrame> playedFrames;
+    private AbstractFrame currentFrame;
+
+    public BowlingGame(@NotNull ScreenModel screenModel) {
 
         this.screenModel = screenModel;
+        this.playedFrames = new HashSet<>();
     }
 
     public void roll(int hitPins) {
 
         if (currentFrame == null) {
-            currentFrame = new Frame(1);
+            Frame nextFrame = new Frame(1, new NullFrame());
+            playedFrames.add(nextFrame);
+            currentFrame = nextFrame;
         }
-        currentFrame = currentFrame.addRoll(hitPins);
+        AbstractFrame nextFrame = currentFrame.addRoll(hitPins);
+        if (playedFrames.add(nextFrame)) {
+            currentFrame = nextFrame;
+        }
         screenModel.updateModel(this);
     }
 
     @Override
     public void writeTo(ScreenModelImpl screenModel) {
-        screenModel.updateGameScore(calculateScore());
-        currentFrame.writeTo(screenModel);
+
+        playedFrames.forEach(frame -> frame.writeTo(screenModel));
     }
 
-    public int calculateScore() {
-        return currentFrame.calculateScore();
+    @Override
+    public String toString() {
+
+        return "BowlingGame{" +
+                "screenModel=" + screenModel +
+                ", playedFrames=" + playedFrames +
+                ", currentFrame=" + currentFrame +
+                '}';
     }
 }

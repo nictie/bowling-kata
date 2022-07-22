@@ -1,8 +1,8 @@
 public final class Roll implements ScoreKeeper, ScoreCalculator {
 
+    private final int frameNumber;
     private final int number;
     private final int score;
-    private final int frameNumber;
 
     public Roll(int frameNumber, int number, int score) {
 
@@ -21,5 +21,15 @@ public final class Roll implements ScoreKeeper, ScoreCalculator {
     public int calculateScore() {
 
         return score;
+    }
+
+    @Override
+    public String toString() {
+
+        return "\nRoll{" +
+                "frameNumber=" + frameNumber +
+                ", number=" + number +
+                ", score=" + score +
+                '}';
     }
 }
