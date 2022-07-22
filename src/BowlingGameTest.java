@@ -27,7 +27,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    @DisplayName("Open: 1 - 1,x = 1")
+    @DisplayName("Open - first roll.")
     void open_first_roll_is_one() {
 
         bowlingGame.roll(1);
@@ -38,7 +38,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    @DisplayName("Open: 1 - 1,4 = 5")
+    @DisplayName("Open - second roll.")
     void open_second_roll_is_four() {
 
         bowlingGame.roll(1);
@@ -50,9 +50,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    @DisplayName("Spare - Add bonus. "
-            + "1 - (1,9) = 11"
-            + "2 - (1,2) = 14")
+    @DisplayName("Add bonus for spare - not last frame.")
     void spare() {
 
         bowlingGame.roll(1);
@@ -73,6 +71,12 @@ public class BowlingGameTest {
         assertThat(screenModel.getRollScore(2, 1)).as(bowlingGame.toString()).isEqualTo(2);
         assertThat(screenModel.getRollScore(2, 2)).as(bowlingGame.toString()).isEqualTo(3);
         assertThat(screenModel.getFrameScore(2)).as(bowlingGame.toString()).isEqualTo(17);
+    }
+
+    @Test
+    @DisplayName("Add bonus for strike - not last frame.")
+    void strike() {
+
     }
 
 }
