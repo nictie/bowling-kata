@@ -8,9 +8,9 @@ public class ScreenModelImpl implements ScreenModel {
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
 
-    public ScreenModelImpl() {
+    public ScreenModelImpl(int maxFrames) {
 
-        numberOfFrames = 10;
+        this.numberOfFrames = maxFrames;
         frameScores = initFrameScores(numberOfFrames);
         rollsPerFrame = initRollsPerFrameScore(numberOfFrames);
     }
@@ -35,7 +35,12 @@ public class ScreenModelImpl implements ScreenModel {
 
         Map<Integer, int[]> result = new LinkedHashMap<>();
         for (int i = 0; i < numberOfFrames; i++) {
-            result.put(i, new int[] { NO_SCORE, NO_SCORE });
+            int[] rollScore = new int[] { NO_SCORE, NO_SCORE };
+            if (i == numberOfFrames - 1) {
+                rollScore = new int[] { NO_SCORE, NO_SCORE, NO_SCORE };
+                result.put(i, rollScore);
+            }
+            result.put(i, rollScore);
         }
         return result;
     }
@@ -43,16 +48,17 @@ public class ScreenModelImpl implements ScreenModel {
     @Override
     public void updateFrameScore(int number, int score) {
 
-        if (number < 0 || number >= frameScores.length) {
+        final int frameIndex = number -1;
+        if (frameIndex < 0 || frameIndex >= frameScores.length) {
             throw new IllegalArgumentException("Frame with given number is not allowed " + number);
         }
-        frameScores[number - 1] = score;
+        frameScores[frameIndex] = score;
     }
 
     @Override
     public void addScoreRollToFrame(int frameNumber, int rollNumber, int score) {
 
-        rollsPerFrame.get(frameNumber -1)[rollNumber - 1] = score;
+        rollsPerFrame.get(frameNumber - 1)[rollNumber - 1] = score;
     }
 
     public Integer getFrameScore(int frameNumber) {
@@ -70,16 +76,16 @@ public class ScreenModelImpl implements ScreenModel {
 
         return "ScreenModelImpl{" +
                 "\nframeScores=" + Arrays.toString(frameScores) +
-                "\n, rollsPerFrame[0]=" + Arrays.toString( rollsPerFrame.get(0)) +
-                "\n, rollsPerFrame[1]=" + Arrays.toString( rollsPerFrame.get(1)) +
-                "\n, rollsPerFrame[2]=" + Arrays.toString( rollsPerFrame.get(2)) +
-                "\n, rollsPerFrame[3]=" + Arrays.toString( rollsPerFrame.get(3)) +
-                "\n, rollsPerFrame[4]=" + Arrays.toString( rollsPerFrame.get(4)) +
-                "\n, rollsPerFrame[5]=" + Arrays.toString( rollsPerFrame.get(5)) +
-                "\n, rollsPerFrame[6]=" + Arrays.toString( rollsPerFrame.get(6)) +
-                "\n, rollsPerFrame[7]=" + Arrays.toString( rollsPerFrame.get(7)) +
-                "\n, rollsPerFrame[8]=" + Arrays.toString( rollsPerFrame.get(8)) +
-                "\n, rollsPerFrame[9]=" + Arrays.toString( rollsPerFrame.get(9)) +
+                "\n, rollsPerFrame[0]=" + Arrays.toString(rollsPerFrame.get(0)) +
+                "\n, rollsPerFrame[1]=" + Arrays.toString(rollsPerFrame.get(1)) +
+                "\n, rollsPerFrame[2]=" + Arrays.toString(rollsPerFrame.get(2)) +
+                "\n, rollsPerFrame[3]=" + Arrays.toString(rollsPerFrame.get(3)) +
+                "\n, rollsPerFrame[4]=" + Arrays.toString(rollsPerFrame.get(4)) +
+                "\n, rollsPerFrame[5]=" + Arrays.toString(rollsPerFrame.get(5)) +
+                "\n, rollsPerFrame[6]=" + Arrays.toString(rollsPerFrame.get(6)) +
+                "\n, rollsPerFrame[7]=" + Arrays.toString(rollsPerFrame.get(7)) +
+                "\n, rollsPerFrame[8]=" + Arrays.toString(rollsPerFrame.get(8)) +
+                "\n, rollsPerFrame[9]=" + Arrays.toString(rollsPerFrame.get(9)) +
                 "\n, numberOfFrames=" + numberOfFrames +
                 '}';
     }

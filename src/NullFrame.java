@@ -1,5 +1,10 @@
 public class NullFrame extends AbstractFrame {
 
+    public NullFrame() {
+
+        super(-1);
+    }
+
     @Override
     public void writeTo(ScreenModelImpl screenModel) {
     }
@@ -16,5 +21,17 @@ public class NullFrame extends AbstractFrame {
 
     @Override
     protected void addBonus(Frame frame, int[] result) {
+    }
+
+    @Override
+    public boolean isLastFrame(int maxFrames) {
+
+        return false;
+    }
+
+    @Override
+    boolean isSpare() {
+
+        return false;
     }
 }

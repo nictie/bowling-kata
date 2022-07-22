@@ -6,18 +6,20 @@ import org.jetbrains.annotations.NotNull;
 public class BowlingGame implements ScoreKeeper {
     private final ScreenModel screenModel;
     private final Set<AbstractFrame> playedFrames;
+    private final Rules rules;
     private AbstractFrame currentFrame;
 
-    public BowlingGame(@NotNull ScreenModel screenModel) {
+    public BowlingGame(@NotNull ScreenModel screenModel, @NotNull Rules rules) {
 
         this.screenModel = screenModel;
         this.playedFrames = new HashSet<>();
+        this.rules = rules;
     }
 
     public void roll(int hitPins) {
 
         if (currentFrame == null) {
-            Frame nextFrame = new Frame(1, new NullFrame());
+            Frame nextFrame = new Frame(1, new NullFrame(), rules);
             playedFrames.add(nextFrame);
             currentFrame = nextFrame;
         }
@@ -42,5 +44,10 @@ public class BowlingGame implements ScoreKeeper {
                 ", playedFrames=" + playedFrames +
                 ", currentFrame=" + currentFrame +
                 '}';
+    }
+
+    public boolean isFinished() {
+
+        return rules.forFrame(currentFrame).isLastFrame;
     }
 }

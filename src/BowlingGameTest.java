@@ -1,4 +1,5 @@
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,8 +13,9 @@ public class BowlingGameTest {
     @BeforeEach
     void setUp() {
 
-        screenModel = new ScreenModelImpl();
-        bowlingGame = new BowlingGame(screenModel);
+        Rules rules = new Rules(2);
+        screenModel = new ScreenModelImpl(rules.maxFrames);
+        bowlingGame = new BowlingGame(screenModel, rules);
     }
 
     @Test
@@ -50,7 +52,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    @DisplayName("Add bonus for spare - not last frame.")
+    @DisplayName("Not last frame - spare - add bonus.")
     void spare() {
 
         bowlingGame.roll(1);
@@ -74,9 +76,48 @@ public class BowlingGameTest {
     }
 
     @Test
-    @DisplayName("Add bonus for strike - not last frame.")
+    @DisplayName("Outside roll - throws exception.")
+    void outside_roll() {
+
+        bowlingGame.roll(1);
+        bowlingGame.roll(2); //3
+
+        bowlingGame.roll(3);
+        bowlingGame.roll(4); //no spare
+
+        assertThat(bowlingGame.isFinished()).isTrue();
+        assertThatThrownBy(()-> bowlingGame.roll(5)).isInstanceOf(IllegalStateException.class); //extra roll not allowed
+    }
+
+    @Test
+    @DisplayName("Last frame - spare - add bonus.")
+    void spare_last() {
+
+        bowlingGame.roll(1);
+        bowlingGame.roll(2); //3
+
+        bowlingGame.roll(3);
+        bowlingGame.roll(7); //10
+        bowlingGame.roll(4); //extra roll
+
+        assertThat(screenModel.getRollScore(2, 1)).as(bowlingGame.toString()).isEqualTo(3);
+        assertThat(screenModel.getRollScore(2, 2)).as(bowlingGame.toString()).isEqualTo(7);
+        assertThat(screenModel.getRollScore(2, 3)).as(bowlingGame.toString()).isEqualTo(4);
+        assertThat(screenModel.getFrameScore(2)).as(bowlingGame.toString()).isEqualTo(18);
+    }
+
+    @Test
+    @DisplayName("Not last frame - strike - add bonus.")
     void strike() {
 
+        assertThat(true).isFalse();
+    }
+
+    @Test
+    @DisplayName("Last frame - strike - add bonus.")
+    void strike_last() {
+
+        assertThat(true).isFalse();
     }
 
 }

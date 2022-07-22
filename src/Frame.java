@@ -1,15 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Frame extends AbstractFrame {
-    private final int number;
+    private final int maxNumberOfRolls = 2;
     private final AbstractFrame previousFrame;
     private final List<Roll> rolls;
+    private final Rules rules;
     private AbstractFrame nextFrame;
 
-    public Frame(int number, AbstractFrame previousFrame) {
+    public Frame(int number, @NotNull AbstractFrame previousFrame, @NotNull Rules rules) {
 
-        this.number = number;
+        super(number);
+        this.rules = rules;
         this.previousFrame = previousFrame;
         this.nextFrame = new NullFrame();
         this.rolls = new ArrayList<>();
@@ -18,14 +22,20 @@ public class Frame extends AbstractFrame {
     @Override
     public AbstractFrame addRoll(int hitPins) {
 
-        if (rolls.size() == 2) {
-            nextFrame = new Frame(number + 1, this);
+        AbstractFrame result;
+
+        FrameRules frameRules = rules.forFrame(this);
+        if (rolls.size() < frameRules.maxRolls) {
+            Roll roll = new Roll(number, rolls.size() + 1, hitPins);
+            rolls.add(roll);
+            result = this;
+        } else {
+            nextFrame = frameRules.createNextFrame(this);
             nextFrame.addRoll(hitPins);
-            return nextFrame;
+            result = nextFrame;
         }
-        Roll roll = new Roll(number, rolls.size() + 1, hitPins);
-        rolls.add(roll);
-        return this;
+        return result;
+
     }
 
     @Override
@@ -58,11 +68,18 @@ public class Frame extends AbstractFrame {
         }
     }
 
+    @Override
+    public boolean isLastFrame(int maxFrames) {
+
+        return number == maxFrames;
+    }
+
     private void addFirstRoll(int[] result) {
+
         result[0] = result[0] + rolls.get(0).calculateScore();
     }
 
-    private boolean isSpare() {
+    boolean isSpare() {
 
         return rolls.size() == 2 && getRollScore() == 10;
     }
