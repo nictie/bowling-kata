@@ -19,11 +19,12 @@ public class BowlingGame implements ScoreKeeper {
     public void roll(int hitPins) {
 
         if (currentFrame == null) {
-            Frame nextFrame = new Frame(1, new NullFrame(), rules);
-            playedFrames.add(nextFrame);
-            currentFrame = nextFrame;
+            NullFrame previousFrame = new NullFrame();
+            Frame firstFrame = new Frame(1, previousFrame, rules);
+            playedFrames.add(firstFrame);
+            currentFrame = firstFrame;
         }
-        AbstractFrame nextFrame = currentFrame.addRoll(hitPins);
+        AbstractFrame nextFrame = currentFrame.roll(hitPins);
         if (playedFrames.add(nextFrame)) {
             currentFrame = nextFrame;
         }

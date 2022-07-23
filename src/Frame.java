@@ -4,7 +4,6 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 public class Frame extends AbstractFrame {
-    private final int maxNumberOfRolls = 2;
     private final AbstractFrame previousFrame;
     private final List<Roll> rolls;
     private final Rules rules;
@@ -20,23 +19,24 @@ public class Frame extends AbstractFrame {
     }
 
     @Override
-    public AbstractFrame addRoll(int hitPins) {
+    public AbstractFrame roll(int hitPins) {
 
         AbstractFrame result;
 
         FrameRules frameRules = rules.forFrame(this);
-        if (rolls.size() < frameRules.maxRolls) {
+        if (frameRules.isRollAllowed(rolls.size())) {
             Roll roll = new Roll(number, rolls.size() + 1, hitPins);
             rolls.add(roll);
             result = this;
         } else {
             nextFrame = frameRules.createNextFrame(this);
-            nextFrame.addRoll(hitPins);
+            nextFrame.roll(hitPins);
             result = nextFrame;
         }
         return result;
 
     }
+
 
     @Override
     public void writeTo(ScreenModelImpl screenModel) {

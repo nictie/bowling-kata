@@ -15,7 +15,7 @@ public class NullFrame extends AbstractFrame {
     }
 
     @Override
-    public Frame addRoll(int hitPins) {
+    public Frame roll(int hitPins) {
         return null;
     }
 

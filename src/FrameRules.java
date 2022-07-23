@@ -20,4 +20,10 @@ public class FrameRules {
         }
         return new Frame(previousFrame.number + 1, previousFrame, rules);
     }
+
+    public boolean isRollAllowed(int numberOfRolls) {
+
+        return numberOfRolls < maxRolls;
+    }
+
 }

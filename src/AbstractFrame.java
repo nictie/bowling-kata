@@ -4,7 +4,7 @@ public abstract class AbstractFrame implements ScoreKeeper, ScoreCalculator {
 
     public AbstractFrame(int number) {this.number = number;}
 
-    public abstract AbstractFrame addRoll(int hitPins);
+    public abstract AbstractFrame roll(int hitPins);
 
     @Override
     public abstract void writeTo(ScreenModelImpl screenModel);

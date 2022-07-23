@@ -13,7 +13,7 @@ public class BowlingGameTest {
     @BeforeEach
     void setUp() {
 
-        Rules rules = new Rules(2);
+        Rules rules = Rules.createRules(2);
         screenModel = new ScreenModelImpl(rules.maxFrames);
         bowlingGame = new BowlingGame(screenModel, rules);
     }
@@ -93,8 +93,8 @@ public class BowlingGameTest {
     @DisplayName("Last frame - spare - add bonus.")
     void spare_last() {
 
-        bowlingGame.roll(1);
-        bowlingGame.roll(2); //3
+        bowlingGame.roll(0);
+        bowlingGame.roll(0); //0
 
         bowlingGame.roll(3);
         bowlingGame.roll(7); //10
@@ -103,7 +103,7 @@ public class BowlingGameTest {
         assertThat(screenModel.getRollScore(2, 1)).as(bowlingGame.toString()).isEqualTo(3);
         assertThat(screenModel.getRollScore(2, 2)).as(bowlingGame.toString()).isEqualTo(7);
         assertThat(screenModel.getRollScore(2, 3)).as(bowlingGame.toString()).isEqualTo(4);
-        assertThat(screenModel.getFrameScore(2)).as(bowlingGame.toString()).isEqualTo(18);
+        assertThat(screenModel.getFrameScore(2)).as(bowlingGame.toString()).isEqualTo(14);
     }
 
     @Test
