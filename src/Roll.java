@@ -1,4 +1,4 @@
-public final class Roll implements ScoreKeeper, ScoreCalculator {
+public final class Roll implements ScreenUpdater, ScoreCalculator {
 
     private final int frameNumber;
     private final int number;
@@ -12,9 +12,9 @@ public final class Roll implements ScoreKeeper, ScoreCalculator {
     }
 
     @Override
-    public void writeTo(ScreenModelImpl screenModel) {
+    public void updateScore(ScreenModelUpdater screenModelUpdater) {
 
-        screenModel.addScoreRollToFrame(frameNumber, number, score);
+        screenModelUpdater.updateRollsOfFrame(frameNumber, number, score);
     }
 
     @Override

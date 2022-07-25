@@ -1,20 +1,37 @@
-public abstract class AbstractFrame implements ScoreKeeper, ScoreCalculator {
+import java.util.ArrayList;
+import java.util.List;
 
+public abstract class AbstractFrame implements ScreenUpdater {
     protected final int number;
+    protected final List<Roll> rolls;
 
-    public AbstractFrame(int number) {this.number = number;}
+    public AbstractFrame(int frameNumber) {
+        number = frameNumber;
+        rolls = new ArrayList<>();
+    }
 
     public abstract AbstractFrame roll(int hitPins);
 
-    @Override
-    public abstract void writeTo(ScreenModelImpl screenModel);
+    protected abstract int calculateScore();
 
-    @Override
-    public abstract int calculateScore();
+    final void addRollScoreTo(int[] result, int index) {
 
-    protected abstract void addBonus(Frame frame, int[] result);
+        if(rolls.size() < index + 1) {
+            return;
+        }
+        result[0] = result[0] + rolls.get(index).calculateScore();
+    }
 
-    public abstract boolean isLastFrame(int maxFrames);
+    final void addFrameScoreTo(int[] result) {
 
-    abstract boolean isSpare();
+        result[0] = result[0] + calculateScore();
+    }
+
+    void addRollScoreTo(int[] result) {
+
+        rolls.forEach(roll -> result[0] = result[0] + roll.calculateScore());
+    }
+
+    public abstract boolean isLastFinished();
+
 }

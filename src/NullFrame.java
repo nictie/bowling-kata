@@ -2,36 +2,30 @@ public class NullFrame extends AbstractFrame {
 
     public NullFrame() {
 
-        super(-1);
+        super(-2);
     }
 
     @Override
-    public void writeTo(ScreenModelImpl screenModel) {
+    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+
     }
 
     @Override
     public int calculateScore() {
+
         return 0;
     }
 
     @Override
     public Frame roll(int hitPins) {
-        return null;
+
+        throw new UnsupportedOperationException("Null frame cannot be rolled.");
     }
 
     @Override
-    protected void addBonus(Frame frame, int[] result) {
-    }
-
-    @Override
-    public boolean isLastFrame(int maxFrames) {
+    public boolean isLastFinished() {
 
         return false;
     }
 
-    @Override
-    boolean isSpare() {
-
-        return false;
-    }
 }

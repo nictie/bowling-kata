@@ -1,19 +1,16 @@
 import org.jetbrains.annotations.NotNull;
 
-public class Frame extends AbstractFrame {
+public class LastFrame extends AbstractFrame {
+
     private static final int maxRolls = 2;
     private static final int spareScore = 10;
-
-    private final int maxFrames;
+    private static final int spareBonusRoll = 1;
     private final AbstractFrame previousFrame;
-    private AbstractFrame nextFrame;
 
-    public Frame(int number, @NotNull AbstractFrame previousFrame, int maxFrames) {
+    public LastFrame(int frameNumber, @NotNull AbstractFrame previousFrame) {
 
-        super(number);
-        this.maxFrames = maxFrames;
+        super(frameNumber);
         this.previousFrame = previousFrame;
-        this.nextFrame = new NullFrame();
     }
 
     @Override
@@ -21,18 +18,10 @@ public class Frame extends AbstractFrame {
 
         AbstractFrame result;
 
-        if (rolls.size() < maxRolls) {
+        if (rolls.size() < maxRolls || isSpare() && rolls.size() < maxRolls + spareBonusRoll) {
             Roll roll = new Roll(number, rolls.size() + 1, hitPins);
             rolls.add(roll);
             result = this;
-        } else if (number < maxFrames - 1) {
-            nextFrame = new Frame(number + 1, this, maxFrames);
-            nextFrame.roll(hitPins);
-            result = nextFrame;
-        } else if (number == maxFrames - 1) {
-            nextFrame = new LastFrame(number + 1, this);
-            nextFrame.roll(hitPins);
-            result = nextFrame;
         } else {
             throw new IllegalStateException("Game is over - no further roll allowed");
         }
@@ -44,7 +33,6 @@ public class Frame extends AbstractFrame {
 
         screenModelUpdater.updateFrameScore(number, calculateScore());
         rolls.forEach(roll -> roll.updateScore(screenModelUpdater));
-        nextFrame.updateScore(screenModelUpdater);
     }
 
     @Override
@@ -52,11 +40,14 @@ public class Frame extends AbstractFrame {
 
         final int[] result = { 0 };
         addRollScoreTo(result);
-        if (isSpare()) {
-            nextFrame.addRollScoreTo(result, 0);
-        }
         previousFrame.addFrameScoreTo(result);
         return result[0];
+    }
+
+    @Override
+    public boolean isLastFinished() {
+
+        return rolls.size() == getMaxRolls();
     }
 
     private boolean isSpare() {
@@ -64,10 +55,13 @@ public class Frame extends AbstractFrame {
         return rolls.size() == maxRolls && getRollScore() == spareScore;
     }
 
-    @Override
-    public boolean isLastFinished() {
+    private int getMaxRolls() {
 
-        return false;
+        int result = maxRolls;
+        if (isSpare()) {
+            result = maxRolls + spareBonusRoll;
+        }
+        return result;
     }
 
     private int getRollScore() {
@@ -80,7 +74,7 @@ public class Frame extends AbstractFrame {
     @Override
     public String toString() {
 
-        return "\nFrame{" +
+        return "\nLastFrame{" +
                 "number=" + number +
                 ", rolls=" + rolls +
                 '}';

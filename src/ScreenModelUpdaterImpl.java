@@ -2,13 +2,13 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ScreenModelImpl implements ScreenModel {
+public class ScreenModelUpdaterImpl implements ScreenModelUpdater, ScreenModel {
 
     private final int[] frameScores;
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
 
-    public ScreenModelImpl(int maxFrames) {
+    public ScreenModelUpdaterImpl(int maxFrames) {
 
         this.numberOfFrames = maxFrames;
         frameScores = initFrameScores(numberOfFrames);
@@ -16,19 +16,37 @@ public class ScreenModelImpl implements ScreenModel {
     }
 
     @Override
-    public void updateModel(ScoreKeeper scoreKeeper) {
+    public void updateModel(ScreenUpdater screenUpdater) {
 
-        scoreKeeper.writeTo(this);
+        screenUpdater.updateScore(this);
     }
 
-    private int[] initFrameScores(int numberOfFrames) {
+    @Override
+    public void updateFrameScore(int number, int score) {
 
-        final int[] frameScore;
-        frameScore = new int[numberOfFrames];
-        for (int i = 0; i < numberOfFrames; i++) {
-            frameScore[i] = NO_SCORE;
+        final int frameIndex = number -1;
+        if (frameIndex < 0 || frameIndex >= frameScores.length) {
+            throw new IllegalArgumentException("Frame with given number is not allowed " + number);
         }
-        return frameScore;
+        frameScores[frameIndex] = score;
+    }
+
+    @Override
+    public void updateRollsOfFrame(int frameNumber, int rollNumber, int score) {
+
+        rollsPerFrame.get(frameNumber - 1)[rollNumber - 1] = score;
+    }
+
+    @Override
+    public Integer getFrameScore(int frameNumber) {
+
+        return frameScores[frameNumber - 1];
+    }
+
+    @Override
+    public Integer getRollScore(int frameNumber, int rollNumber) {
+
+        return rollsPerFrame.get(frameNumber - 1)[rollNumber - 1];
     }
 
     private Map<Integer, int[]> initRollsPerFrameScore(int numberOfFrames) {
@@ -45,30 +63,14 @@ public class ScreenModelImpl implements ScreenModel {
         return result;
     }
 
-    @Override
-    public void updateFrameScore(int number, int score) {
+    private int[] initFrameScores(int numberOfFrames) {
 
-        final int frameIndex = number -1;
-        if (frameIndex < 0 || frameIndex >= frameScores.length) {
-            throw new IllegalArgumentException("Frame with given number is not allowed " + number);
+        final int[] frameScore;
+        frameScore = new int[numberOfFrames];
+        for (int i = 0; i < numberOfFrames; i++) {
+            frameScore[i] = NO_SCORE;
         }
-        frameScores[frameIndex] = score;
-    }
-
-    @Override
-    public void addScoreRollToFrame(int frameNumber, int rollNumber, int score) {
-
-        rollsPerFrame.get(frameNumber - 1)[rollNumber - 1] = score;
-    }
-
-    public Integer getFrameScore(int frameNumber) {
-
-        return frameScores[frameNumber - 1];
-    }
-
-    public Integer getRollScore(int frameNumber, int rollNumber) {
-
-        return rollsPerFrame.get(frameNumber - 1)[rollNumber - 1];
+        return frameScore;
     }
 
     @Override
