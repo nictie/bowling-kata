@@ -57,23 +57,37 @@ public class GameControllerTest {
     void spare() {
 
         gameController.registerRoll(1);
-        gameController.registerRoll(9);
-
         assertThat(screenModel.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
+        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
+
+        gameController.registerRoll(9);
         assertThat(screenModel.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(9);
         assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
 
         gameController.registerRoll(2);
-        gameController.registerRoll(3);
-
-        // add score of next frame
-        assertThat(screenModel.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(9);
+        assertThat(screenModel.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(2);
         assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
 
-        assertThat(screenModel.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(2);
+        gameController.registerRoll(3);
         assertThat(screenModel.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(3);
+        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
         assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(17);
+    }
+
+    @Test
+    @DisplayName("Not last frame - strike - add bonus.")
+    void strike() {
+
+        gameController.registerRoll(10);
+        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
+
+        gameController.registerRoll(1);
+        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(11);
+        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(12);
+
+        gameController.registerRoll(2);
+        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(13);
+        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(16);
     }
 
     @Test
@@ -100,7 +114,9 @@ public class GameControllerTest {
 
         gameController.registerRoll(3);
         gameController.registerRoll(7); //10
+        assertThat(gameController.isFinished()).isFalse();
         gameController.registerRoll(4); //extra roll
+        assertThat(gameController.isFinished()).isTrue();
 
         assertThat(screenModel.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(3);
         assertThat(screenModel.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(7);
@@ -109,17 +125,14 @@ public class GameControllerTest {
     }
 
     @Test
-    @DisplayName("Not last frame - strike - add bonus.")
-    void strike() {
-
-        assertThat(true).isFalse();
-    }
-
-    @Test
     @DisplayName("Last frame - strike - add bonus.")
     void strike_last() {
 
-        assertThat(true).isFalse();
+        gameController.registerRoll(0);
+        gameController.registerRoll(0); //0
+
+        gameController.registerRoll(3);
+
     }
 
 }

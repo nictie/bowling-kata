@@ -3,9 +3,10 @@ import org.jetbrains.annotations.NotNull;
 public class LastFrame extends AbstractFrame {
 
     private static final int maxRolls = 2;
-    private static final int spareScore = 10;
+    private static final int highScore = 10;
     private static final int spareBonusRoll = 1;
     private final AbstractFrame previousFrame;
+    private boolean isSpare;
 
     public LastFrame(int frameNumber, @NotNull AbstractFrame previousFrame) {
 
@@ -52,7 +53,11 @@ public class LastFrame extends AbstractFrame {
 
     private boolean isSpare() {
 
-        return rolls.size() == maxRolls && getRollScore() == spareScore;
+        boolean result = rolls.size() == maxRolls && getRollScore() == highScore;
+        if (result) {
+            isSpare = true;
+        }
+        return isSpare;
     }
 
     private int getMaxRolls() {

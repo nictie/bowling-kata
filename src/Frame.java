@@ -2,7 +2,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Frame extends AbstractFrame {
     private static final int maxRolls = 2;
-    private static final int spareScore = 10;
+    private static final int highScore = 10;
 
     private final int maxFrames;
     private final AbstractFrame previousFrame;
@@ -21,7 +21,7 @@ public class Frame extends AbstractFrame {
 
         AbstractFrame result;
 
-        if (rolls.size() < maxRolls) {
+        if (rolls.size() < getMaxRolls()) {
             Roll roll = new Roll(number, rolls.size() + 1, hitPins);
             rolls.add(roll);
             result = this;
@@ -54,6 +54,9 @@ public class Frame extends AbstractFrame {
         addRollScoreTo(result);
         if (isSpare()) {
             nextFrame.addRollScoreTo(result, 0);
+        } else if(isStrike()) {
+            nextFrame.addRollScoreTo(result, 0);
+            nextFrame.addRollScoreTo(result, 1);
         }
         previousFrame.addFrameScoreTo(result);
         return result[0];
@@ -61,7 +64,21 @@ public class Frame extends AbstractFrame {
 
     private boolean isSpare() {
 
-        return rolls.size() == maxRolls && getRollScore() == spareScore;
+        return rolls.size() == maxRolls && getRollScore() == highScore;
+    }
+
+    private int getMaxRolls() {
+
+        int result = maxRolls;
+        if (isStrike()) {
+            result = maxRolls -1;
+        }
+        return result;
+    }
+
+    private boolean isStrike() {
+
+        return rolls.size() < maxRolls && getRollScore() == highScore;
     }
 
     @Override
