@@ -1,6 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -92,17 +93,18 @@ public class GameControllerTest {
 
     @Test
     @DisplayName("Outside roll - throws exception.")
-    void outside_roll() {
+    void outside_roll_no_spare() {
 
         gameController.registerRoll(1);
         gameController.registerRoll(2); //3
 
         gameController.registerRoll(3);
-        assertThat(gameController.isFinished()).isFalse();
         gameController.registerRoll(4); //no spare
-
         assertThat(gameController.isFinished()).isTrue();
-        assertThatThrownBy(()-> gameController.registerRoll(5)).isInstanceOf(IllegalStateException.class); //extra roll not allowed
+
+        //next roll not allowed
+        ThrowingCallable throwable = () -> gameController.registerRoll(5);
+        assertThatThrownBy(throwable).isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -114,7 +116,6 @@ public class GameControllerTest {
 
         gameController.registerRoll(3);
         gameController.registerRoll(7); //10
-        assertThat(gameController.isFinished()).isFalse();
         gameController.registerRoll(4); //extra roll
         assertThat(gameController.isFinished()).isTrue();
 
@@ -131,8 +132,12 @@ public class GameControllerTest {
         gameController.registerRoll(0);
         gameController.registerRoll(0); //0
 
-        gameController.registerRoll(3);
+        gameController.registerRoll(10);
+        assertThat(gameController.isFinished()).isTrue();
+        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(10);
 
+        gameController.registerRoll(1);
+        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(11);
     }
 
 }
