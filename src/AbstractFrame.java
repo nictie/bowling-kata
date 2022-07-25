@@ -1,13 +1,12 @@
-import java.util.ArrayList;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractFrame implements ScreenUpdater {
     protected final int number;
-    protected final List<Roll> rolls;
+    protected final AbstractRollCounter rollCounter;
 
-    public AbstractFrame(int frameNumber) {
+    public AbstractFrame(int frameNumber, @NotNull AbstractRollCounter rollCounter) {
         number = frameNumber;
-        rolls = new ArrayList<>();
+        this.rollCounter = rollCounter;
     }
 
     public abstract AbstractFrame roll(int hitPins);
@@ -16,20 +15,12 @@ public abstract class AbstractFrame implements ScreenUpdater {
 
     final void addRollScoreTo(int[] result, int index) {
 
-        if(rolls.size() < index + 1) {
-            return;
-        }
-        result[0] = result[0] + rolls.get(index).calculateScore();
+       rollCounter.addRollScoreTo(result, index);
     }
 
     final void addFrameScoreTo(int[] result) {
 
         result[0] = result[0] + calculateScore();
-    }
-
-    void addRollScoreTo(int[] result) {
-
-        rolls.forEach(roll -> result[0] = result[0] + roll.calculateScore());
     }
 
     public abstract boolean isLastFinished();

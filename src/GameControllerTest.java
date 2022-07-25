@@ -133,10 +133,11 @@ public class GameControllerTest {
         gameController.registerRoll(0); //0
 
         gameController.registerRoll(10);
-        assertThat(gameController.isFinished()).isTrue();
+        assertThat(gameController.isFinished()).as(gameController.toString()).isFalse();
         assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(10);
 
         gameController.registerRoll(1);
+        assertThat(gameController.isFinished()).as(gameController.toString()).isTrue();
         assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(11);
     }
 

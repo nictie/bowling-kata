@@ -5,8 +5,16 @@ public class InitialFrame extends AbstractFrame {
 
     public InitialFrame(int maxFrames) {
 
-        super(-1);
+        super(-1, new NullRollCounter());
         this.maxFrames = maxFrames;
+    }
+
+    @Override
+    public Frame roll(int hitPins) {
+
+        nextFrame = new Frame(1, this, maxFrames);
+        nextFrame.roll(hitPins);
+        return nextFrame;
     }
 
     @Override
@@ -19,14 +27,6 @@ public class InitialFrame extends AbstractFrame {
     public int calculateScore() {
 
         return 0;
-    }
-
-    @Override
-    public Frame roll(int hitPins) {
-
-        nextFrame = new Frame(1, this, maxFrames);
-        nextFrame.roll(hitPins);
-        return nextFrame;
     }
 
     @Override
