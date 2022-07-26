@@ -1,4 +1,4 @@
-package org.niclem.bowling;
+package org.niclem.bowling.impl;
 
 public final class Roll implements ScreenUpdater, ScoreCalculator {
 
@@ -28,7 +28,7 @@ public final class Roll implements ScreenUpdater, ScoreCalculator {
     @Override
     public String toString() {
 
-        return "\norg.niclem.bowling.Roll{" +
+        return "\norg.niclem.bowling.impl.Roll{" +
                 "frameNumber=" + frameNumber +
                 ", number=" + number +
                 ", score=" + score +

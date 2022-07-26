@@ -1,4 +1,4 @@
-package org.niclem.bowling;
+package org.niclem.bowling.impl;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,7 +40,7 @@ public class LastFrame extends FrameAbstract {
     @Override
     public String toString() {
 
-        return "\norg.niclem.bowling.LastFrame{" +
+        return "\norg.niclem.bowling.impl.LastFrame{" +
                 "number=" + number +
                 ", rollCouunter=" + rollCounter +
                 '}';

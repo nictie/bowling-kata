@@ -1,6 +1,10 @@
 package org.niclem.bowling;
 
 import org.jetbrains.annotations.NotNull;
+import org.niclem.bowling.impl.FrameAbstract;
+import org.niclem.bowling.impl.InitialFrame;
+import org.niclem.bowling.impl.ScreenModelUpdater;
+import org.niclem.bowling.impl.ScreenUpdater;
 
 public class GameController implements ScreenUpdater {
     private final ScreenModelUpdater screenModelUpdater;

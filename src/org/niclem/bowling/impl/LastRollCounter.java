@@ -1,4 +1,4 @@
-package org.niclem.bowling;
+package org.niclem.bowling.impl;
 
 import java.util.ArrayList;
 

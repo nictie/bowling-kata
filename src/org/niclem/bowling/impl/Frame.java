@@ -1,4 +1,4 @@
-package org.niclem.bowling;
+package org.niclem.bowling.impl;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +38,7 @@ public class Frame extends FrameAbstract {
                 scoreCalculator.setNext(nextScoreCalculator);
                 result = nextFrame;
             } else {
-                throw new IllegalStateException("org.niclem.bowling.Frame is over - no further roll allowed");
+                throw new IllegalStateException("org.niclem.bowling.impl.Frame is over - no further roll allowed");
             }
         }
         return result;
@@ -61,7 +61,7 @@ public class Frame extends FrameAbstract {
     @Override
     public String toString() {
 
-        return "\norg.niclem.bowling.Frame{" +
+        return "\norg.niclem.bowling.impl.Frame{" +
                 "number=" + number +
                 ", rollsCounter=" + rollCounter +
                 '}';

@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.niclem.bowling.impl.ScreenModelUpdater;
+import org.niclem.bowling.impl.ScreenUpdater;
+
 public class ScreenModelUpdaterImpl implements ScreenModelUpdater, ScreenModel {
 
     private final int[] frameScores;
@@ -28,7 +31,7 @@ public class ScreenModelUpdaterImpl implements ScreenModelUpdater, ScreenModel {
 
         final int frameIndex = number -1;
         if (frameIndex < 0 || frameIndex >= frameScores.length) {
-            throw new IllegalArgumentException("org.niclem.bowling.Frame with given number is not allowed " + number);
+            throw new IllegalArgumentException("org.niclem.bowling.impl.Frame with given number is not allowed " + number);
         }
         frameScores[frameIndex] = score;
     }

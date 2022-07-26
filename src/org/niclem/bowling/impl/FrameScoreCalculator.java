@@ -1,4 +1,4 @@
-package org.niclem.bowling;
+package org.niclem.bowling.impl;
 
 public class FrameScoreCalculator extends FrameScoreCalculatorAbstract {
 
