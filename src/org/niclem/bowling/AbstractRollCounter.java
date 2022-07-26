@@ -1,3 +1,5 @@
+package org.niclem.bowling;
+
 import java.util.List;
 
 public abstract class AbstractRollCounter implements ScreenUpdater {

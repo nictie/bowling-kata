@@ -1,3 +1,5 @@
+package org.niclem.bowling;
+
 import java.util.ArrayList;
 
 public class RollCounter extends AbstractRollCounter {

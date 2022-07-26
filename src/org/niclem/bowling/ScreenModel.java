@@ -1,3 +1,5 @@
+package org.niclem.bowling;
+
 public interface ScreenModel {
     Integer getFrameScore(int frameNumber);
 

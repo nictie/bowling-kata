@@ -1,4 +1,6 @@
-public class InitialFrame extends AbstractFrame {
+package org.niclem.bowling;
+
+public class InitialFrame extends FrameAbstract {
 
     private Frame nextFrame;
     private final int maxFrames;

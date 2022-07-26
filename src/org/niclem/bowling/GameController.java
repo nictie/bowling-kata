@@ -1,10 +1,12 @@
+package org.niclem.bowling;
+
 import org.jetbrains.annotations.NotNull;
 
 public class GameController implements ScreenUpdater {
     private final ScreenModelUpdater screenModelUpdater;
-    private final AbstractFrame initialFrame;
+    private final FrameAbstract initialFrame;
     private final int maxFrames;
-    private AbstractFrame currentFrame;
+    private FrameAbstract currentFrame;
 
     public GameController(@NotNull ScreenModelUpdater screenModelUpdater, int maxFrames) {
 

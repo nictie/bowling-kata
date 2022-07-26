@@ -1,3 +1,5 @@
+package org.niclem.bowling;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -48,7 +50,7 @@ public class GameControllerTest {
     @DisplayName("The screen model is initialized correctly.")
     void screenModel_initialized() {
 
-        //assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(ScreenModel.NO_SCORE);
+        //assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(org.niclem.bowling.ScreenModel.NO_SCORE);
         assertThat(screenModel.getFrameScore(1)).as(screenModel.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
         assertThat(screenModel.getRollScore(1, 1)).as(screenModel.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
         assertThat(screenModel.getRollScore(1, 2)).as(screenModel.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);

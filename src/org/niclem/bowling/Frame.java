@@ -1,9 +1,11 @@
+package org.niclem.bowling;
+
 import org.jetbrains.annotations.NotNull;
 
-public class Frame extends AbstractFrame {
+public class Frame extends FrameAbstract {
     private final int maxFrames;
     private final FrameScoreCalculator scoreCalculator;
-    private AbstractFrame nextFrame;
+    private FrameAbstract nextFrame;
 
     public Frame(int number, int maxFrames, @NotNull RollCounter rollCounter, @NotNull FrameScoreCalculator scoreCalculator) {
 
@@ -14,9 +16,9 @@ public class Frame extends AbstractFrame {
     }
 
     @Override
-    public AbstractFrame roll(int hitPins) {
+    public FrameAbstract roll(int hitPins) {
 
-        AbstractFrame result;
+        FrameAbstract result;
 
         if (rollCounter.addRoll(hitPins, number)) {
             result = this;
@@ -36,7 +38,7 @@ public class Frame extends AbstractFrame {
                 scoreCalculator.setNext(nextScoreCalculator);
                 result = nextFrame;
             } else {
-                throw new IllegalStateException("Frame is over - no further roll allowed");
+                throw new IllegalStateException("org.niclem.bowling.Frame is over - no further roll allowed");
             }
         }
         return result;
@@ -59,7 +61,7 @@ public class Frame extends AbstractFrame {
     @Override
     public String toString() {
 
-        return "\nFrame{" +
+        return "\norg.niclem.bowling.Frame{" +
                 "number=" + number +
                 ", rollsCounter=" + rollCounter +
                 '}';

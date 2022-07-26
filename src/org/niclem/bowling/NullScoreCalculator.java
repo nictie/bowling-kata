@@ -1,4 +1,6 @@
-public class NullScoreCalculator extends AbstractScoreCalculator {
+package org.niclem.bowling;
+
+public class NullScoreCalculator extends FrameScoreCalculatorAbstract {
 
     public NullScoreCalculator() {
 

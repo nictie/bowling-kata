@@ -1,6 +1,8 @@
+package org.niclem.bowling;
+
 import org.jetbrains.annotations.NotNull;
 
-public class LastFrame extends AbstractFrame {
+public class LastFrame extends FrameAbstract {
 
     public LastFrame(int frameNumber, @NotNull LastRollCounter rollCounter, @NotNull LastScoreCalculator scoreCalculator) {
 
@@ -8,9 +10,9 @@ public class LastFrame extends AbstractFrame {
     }
 
     @Override
-    public AbstractFrame roll(int hitPins) {
+    public FrameAbstract roll(int hitPins) {
 
-        AbstractFrame result;
+        FrameAbstract result;
 
         if (rollCounter.addRoll(hitPins, number)) {
             result = this;
@@ -38,7 +40,7 @@ public class LastFrame extends AbstractFrame {
     @Override
     public String toString() {
 
-        return "\nLastFrame{" +
+        return "\norg.niclem.bowling.LastFrame{" +
                 "number=" + number +
                 ", rollCouunter=" + rollCounter +
                 '}';

@@ -1,3 +1,5 @@
+package org.niclem.bowling;
+
 public final class Roll implements ScreenUpdater, ScoreCalculator {
 
     private final int frameNumber;
@@ -26,7 +28,7 @@ public final class Roll implements ScreenUpdater, ScoreCalculator {
     @Override
     public String toString() {
 
-        return "\nRoll{" +
+        return "\norg.niclem.bowling.Roll{" +
                 "frameNumber=" + frameNumber +
                 ", number=" + number +
                 ", score=" + score +

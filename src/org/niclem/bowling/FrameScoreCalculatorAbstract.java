@@ -1,8 +1,10 @@
-public abstract class AbstractScoreCalculator implements ScoreCalculator {
+package org.niclem.bowling;
+
+public abstract class FrameScoreCalculatorAbstract implements ScoreCalculator {
 
     protected final AbstractRollCounter rollCounter;
 
-    public AbstractScoreCalculator(AbstractRollCounter rollCounter) {
+    public FrameScoreCalculatorAbstract(AbstractRollCounter rollCounter) {
 
         this.rollCounter = rollCounter;
     }

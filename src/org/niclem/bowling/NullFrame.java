@@ -1,4 +1,6 @@
-public class NullFrame extends AbstractFrame {
+package org.niclem.bowling;
+
+public class NullFrame extends FrameAbstract {
 
     public NullFrame() {
 

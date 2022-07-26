@@ -1,3 +1,5 @@
+package org.niclem.bowling;
+
 public interface ScreenModelUpdater {
     Integer NO_SCORE = -1;
 

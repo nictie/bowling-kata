@@ -1,9 +1,11 @@
-public class FrameScoreCalculator extends AbstractScoreCalculator {
+package org.niclem.bowling;
 
-    private final AbstractScoreCalculator previousFrame;
-    private AbstractScoreCalculator nextFrame;
+public class FrameScoreCalculator extends FrameScoreCalculatorAbstract {
 
-    public FrameScoreCalculator(RollCounter rollCounter, AbstractScoreCalculator previousFrame) {
+    private final FrameScoreCalculatorAbstract previousFrame;
+    private FrameScoreCalculatorAbstract nextFrame;
+
+    public FrameScoreCalculator(RollCounter rollCounter, FrameScoreCalculatorAbstract previousFrame) {
 
         super(rollCounter);
 
@@ -11,7 +13,7 @@ public class FrameScoreCalculator extends AbstractScoreCalculator {
         this.nextFrame = new NullScoreCalculator();
     }
 
-    public void setNext(AbstractScoreCalculator aFrame) {
+    public void setNext(FrameScoreCalculatorAbstract aFrame) {
 
         nextFrame = aFrame;
     }
