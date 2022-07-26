@@ -39,11 +39,19 @@ public class Frame extends FrameAbstract {
         return result;
     }
 
+    @Override
+    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+
+        super.updateScore(screenModelUpdater);
+        nextFrame.updateScore(screenModelUpdater);
+    }
+
     private FrameAbstract createNextFrame() {
 
         var nextRollCounter = new RollCounter();
         var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, scoreCalculator);
         scoreCalculator.setNext(nextScoreCalculator);
+
         return new Frame(number + 1, rules, nextRollCounter, nextScoreCalculator);
     }
 
@@ -52,15 +60,8 @@ public class Frame extends FrameAbstract {
         var nextRollCounter = new LastRollCounter();
         var nextScoreCalculator = new LastScoreCalculator(nextRollCounter, scoreCalculator);
         scoreCalculator.setNext(nextScoreCalculator);
+
         return new LastFrame(number + 1, nextRollCounter, nextScoreCalculator);
-    }
-
-    @Override
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
-
-        screenModelUpdater.updateFrameScore(number, scoreCalculator.calculateScore());
-        rollCounter.updateScore(screenModelUpdater);
-        nextFrame.updateScore(screenModelUpdater);
     }
 
     @Override

@@ -4,29 +4,34 @@ import org.niclem.bowling.Rules;
 
 public class InitialFrame extends FrameAbstract {
 
-    private Frame nextFrame;
+    private FrameAbstract nextFrame;
     private final Rules rules;
 
     public InitialFrame(Rules rules) {
 
-        super(-1, new NullRollCounter(), new NullScoreCalculator());
+        super(0, new NullRollCounter(), new NullScoreCalculator());
         this.rules = rules;
     }
 
     @Override
-    public Frame roll(int hitPins) {
+    public FrameAbstract roll(int hitPins) {
 
-        RollCounter rollCounter = new RollCounter();
-        FrameScoreCalculator scoreCalculator = new FrameScoreCalculator(rollCounter, new NullScoreCalculator());
-        nextFrame = new Frame(1, rules, rollCounter, scoreCalculator);
+        nextFrame = createNextFrame();
         nextFrame.roll(hitPins);
         return nextFrame;
     }
 
-    @Override
     public void updateScore(ScreenModelUpdater screenModelUpdater) {
 
         nextFrame.updateScore(screenModelUpdater);
+    }
+
+    private FrameAbstract createNextFrame() {
+
+        var nextRollCounter = new RollCounter();
+        var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, new NullScoreCalculator());
+
+        return new Frame(number + 1, rules, nextRollCounter, nextScoreCalculator);
     }
 
     @Override

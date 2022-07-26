@@ -17,4 +17,10 @@ public abstract class FrameAbstract implements ScreenUpdater {
 
     public abstract boolean isLastFinished();
 
+    @Override
+    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+
+        screenModelUpdater.updateFrameScore(number, scoreCalculator.calculateScore());
+        rollCounter.updateScore(screenModelUpdater);
+    }
 }
