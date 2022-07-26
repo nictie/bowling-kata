@@ -13,9 +13,9 @@ public class ScreenModelUpdaterImpl implements ScreenModelUpdater, ScreenModel {
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
 
-    public ScreenModelUpdaterImpl(int maxFrames) {
+    public ScreenModelUpdaterImpl(Rules rules) {
 
-        this.numberOfFrames = maxFrames;
+        numberOfFrames = rules.maxFrames();
         frameScores = initFrameScores(numberOfFrames);
         rollsPerFrame = initRollsPerFrameScore(numberOfFrames);
     }

@@ -10,10 +10,10 @@ public class GameController {
     private final FrameAbstract initialFrame;
     private FrameAbstract currentFrame;
 
-    public GameController(@NotNull ScreenModelUpdater screenModelUpdater, int maxFrames) {
+    public GameController(@NotNull ScreenModelUpdater screenModelUpdater, Rules rules) {
 
         this.screenModelUpdater = screenModelUpdater;
-        this.initialFrame = new InitialFrame(maxFrames);
+        this.initialFrame = new InitialFrame(rules);
         this.currentFrame = initialFrame;
     }
 

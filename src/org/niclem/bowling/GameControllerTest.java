@@ -17,19 +17,26 @@ public class GameControllerTest {
     @BeforeEach
     void setUp() {
 
-        int maxFrames = 2;
-        ScreenModelUpdaterImpl screenModel = new ScreenModelUpdaterImpl(maxFrames);
-        this.gameController = new GameController(screenModel, maxFrames);
+        Rules rules = new Rules(2);
+        ScreenModelUpdaterImpl screenModel = new ScreenModelUpdaterImpl(rules);
+        this.gameController = new GameController(screenModel, rules);
         this.screenModel = screenModel;
+    }
+
+    @Test
+    @DisplayName("Rules without frames is not allowed")
+    void init_rules_with_0_frames() {
+
+        assertThatThrownBy(()-> new Rules(0)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     @DisplayName("Play bowling game with four frames")
     void play() {
 
-        int maxFrames = 4;
-        ScreenModelUpdaterImpl screenModel = new ScreenModelUpdaterImpl(maxFrames);
-        var gameController = new GameController(screenModel, maxFrames);
+        Rules rules = new Rules(4);
+        ScreenModelUpdaterImpl screenModel = new ScreenModelUpdaterImpl(rules);
+        var gameController = new GameController(screenModel, rules);
 
         gameController.registerRoll(10);
         assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);

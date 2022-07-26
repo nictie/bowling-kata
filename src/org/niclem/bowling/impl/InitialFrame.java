@@ -1,14 +1,16 @@
 package org.niclem.bowling.impl;
 
+import org.niclem.bowling.Rules;
+
 public class InitialFrame extends FrameAbstract {
 
     private Frame nextFrame;
-    private final int maxFrames;
+    private final Rules rules;
 
-    public InitialFrame(int maxFrames) {
+    public InitialFrame(Rules rules) {
 
         super(-1, new NullRollCounter(), new NullScoreCalculator());
-        this.maxFrames = maxFrames;
+        this.rules = rules;
     }
 
     @Override
@@ -16,7 +18,7 @@ public class InitialFrame extends FrameAbstract {
 
         RollCounter rollCounter = new RollCounter();
         FrameScoreCalculator scoreCalculator = new FrameScoreCalculator(rollCounter, new NullScoreCalculator());
-        nextFrame = new Frame(1, maxFrames, rollCounter, scoreCalculator);
+        nextFrame = new Frame(1, rules, rollCounter, scoreCalculator);
         nextFrame.roll(hitPins);
         return nextFrame;
     }
