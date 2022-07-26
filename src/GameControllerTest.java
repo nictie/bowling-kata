@@ -21,6 +21,30 @@ public class GameControllerTest {
     }
 
     @Test
+    @DisplayName("Play bowling game with four frames")
+    void play() {
+
+        int maxFrames = 4;
+        ScreenModelUpdaterImpl screenModel = new ScreenModelUpdaterImpl(maxFrames);
+        var gameController = new GameController(screenModel, maxFrames);
+
+        gameController.registerRoll(10);
+        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
+
+        gameController.registerRoll(0);
+        gameController.registerRoll(1);
+        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(12);
+
+        gameController.registerRoll(1);
+        gameController.registerRoll(9);
+        assertThat(screenModel.getFrameScore(3)).as(gameController.toString()).isEqualTo(22);
+
+        gameController.registerRoll(10);
+        gameController.registerRoll(1);
+        assertThat(screenModel.getFrameScore(4)).as(gameController.toString()).isEqualTo(43);
+    }
+
+    @Test
     @DisplayName("The screen model is initialized correctly.")
     void screenModel_initialized() {
 

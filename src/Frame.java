@@ -2,14 +2,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class Frame extends AbstractFrame {
     private final int maxFrames;
-    private final AbstractFrame previousFrame;
+    private final FrameScoreCalculator scoreCalculator;
     private AbstractFrame nextFrame;
 
-    public Frame(int number, @NotNull AbstractFrame previousFrame, int maxFrames) {
+    public Frame(int number, int maxFrames, @NotNull RollCounter rollCounter, @NotNull FrameScoreCalculator scoreCalculator) {
 
-        super(number, new RollCounter());
+        super(number, rollCounter, scoreCalculator);
         this.maxFrames = maxFrames;
-        this.previousFrame = previousFrame;
+        this.scoreCalculator = scoreCalculator;
         this.nextFrame = new NullFrame();
     }
 
@@ -22,12 +22,18 @@ public class Frame extends AbstractFrame {
             result = this;
         } else {
             if (number < maxFrames - 1) {
-                nextFrame = new Frame(number + 1, this, maxFrames);
+                var nextRollCounter = new RollCounter();
+                var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, scoreCalculator);
+                nextFrame = new Frame(number + 1, maxFrames, nextRollCounter, nextScoreCalculator);
                 nextFrame.roll(hitPins);
+                scoreCalculator.setNext(nextScoreCalculator);
                 result = nextFrame;
             } else if (number == maxFrames - 1) {
-                nextFrame = new LastFrame(number + 1, this);
+                var nextRollCounter = new LastRollCounter();
+                var nextScoreCalculator = new LastScoreCalculator(nextRollCounter, this.scoreCalculator);
+                nextFrame = new LastFrame(number + 1, nextRollCounter, nextScoreCalculator);
                 nextFrame.roll(hitPins);
+                scoreCalculator.setNext(nextScoreCalculator);
                 result = nextFrame;
             } else {
                 throw new IllegalStateException("Frame is over - no further roll allowed");
@@ -39,24 +45,9 @@ public class Frame extends AbstractFrame {
     @Override
     public void updateScore(ScreenModelUpdater screenModelUpdater) {
 
-        screenModelUpdater.updateFrameScore(number, calculateScore());
+        screenModelUpdater.updateFrameScore(number, scoreCalculator.calculateScore());
         rollCounter.updateScore(screenModelUpdater);
         nextFrame.updateScore(screenModelUpdater);
-    }
-
-    @Override
-    public int calculateScore() {
-
-        final int[] result = { 0 };
-        rollCounter.addRollScoreTo(result);
-        if (rollCounter.isSpare()) {
-            nextFrame.addRollScoreTo(result, 0);
-        } else if (rollCounter.isStrike()) {
-            nextFrame.addRollScoreTo(result, 0);
-            nextFrame.addRollScoreTo(result, 1);
-        }
-        previousFrame.addFrameScoreTo(result);
-        return result[0];
     }
 
     @Override

@@ -2,12 +2,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class LastFrame extends AbstractFrame {
 
-    private final AbstractFrame previousFrame;
+    public LastFrame(int frameNumber, @NotNull LastRollCounter rollCounter, @NotNull LastScoreCalculator scoreCalculator) {
 
-    public LastFrame(int frameNumber, @NotNull AbstractFrame previousFrame) {
-
-        super(frameNumber, new LastRollCounter());
-        this.previousFrame = previousFrame;
+        super(frameNumber, rollCounter, scoreCalculator);
     }
 
     @Override
@@ -26,18 +23,11 @@ public class LastFrame extends AbstractFrame {
     @Override
     public void updateScore(ScreenModelUpdater screenModelUpdater) {
 
-        screenModelUpdater.updateFrameScore(number, calculateScore());
+        screenModelUpdater.updateFrameScore(number, scoreCalculator.calculateScore());
         rollCounter.updateScore(screenModelUpdater);
     }
 
-    @Override
-    public int calculateScore() {
 
-        final int[] result = { 0 };
-        rollCounter.addRollScoreTo(result);
-        previousFrame.addFrameScoreTo(result);
-        return result[0];
-    }
 
     @Override
     public boolean isLastFinished() {

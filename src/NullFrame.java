@@ -2,7 +2,7 @@ public class NullFrame extends AbstractFrame {
 
     public NullFrame() {
 
-        super(-2, new NullRollCounter());
+        super(-2, new NullRollCounter(), new NullScoreCalculator());
     }
 
     @Override
@@ -14,12 +14,6 @@ public class NullFrame extends AbstractFrame {
     @Override
     public void updateScore(ScreenModelUpdater screenModelUpdater) {
 
-    }
-
-    @Override
-    public int calculateScore() {
-
-        return 0;
     }
 
     @Override
