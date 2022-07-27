@@ -7,13 +7,13 @@ import java.util.Map;
 import org.niclem.bowling.GameScore;
 import org.niclem.bowling.Rules;
 
-public final class GameScoreResult implements GameScore {
+public final class GameScoreImpl implements GameScore {
 
     private final int[] frameScores;
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
 
-    public GameScoreResult(Rules rules) {
+    public GameScoreImpl(Rules rules) {
 
         numberOfFrames = rules.maxFrames();
         frameScores = initFrameScores(numberOfFrames);

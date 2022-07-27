@@ -2,12 +2,12 @@ package org.niclem.bowling.impl;
 
 import org.niclem.bowling.Rules;
 
-public class InitialFrame extends AbstractFrame {
+final class InitialFrame extends AbstractFrame {
 
     private AbstractFrame nextFrame;
     private final Rules rules;
 
-    public InitialFrame(Rules rules) {
+    InitialFrame(Rules rules) {
 
         super(0, new NullFrameScoreCalculator());
         this.rules = rules;
@@ -21,9 +21,9 @@ public class InitialFrame extends AbstractFrame {
         return nextFrame;
     }
 
-    public void updateScore(GameScoreResult gameScoreResult) {
+    public void updateScore(GameScoreImpl gameScore) {
 
-        nextFrame.updateScore(gameScoreResult);
+        nextFrame.updateScore(gameScore);
     }
 
     private AbstractFrame createNextFrame() {

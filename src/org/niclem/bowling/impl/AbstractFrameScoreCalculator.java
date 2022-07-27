@@ -12,10 +12,10 @@ abstract class AbstractFrameScoreCalculator implements GameScoreUpdater {
     }
 
     @Override
-    public void updateScore(GameScoreResult gameScoreResult) {
+    public void updateScore(GameScoreImpl gameScore) {
 
-        gameScoreResult.updateFrameScore(number, calculateScore());
-        controller.updateScore(gameScoreResult);
+        gameScore.updateFrameScore(number, calculateScore());
+        controller.updateScore(gameScore);
     }
 
     protected abstract int calculateScore();

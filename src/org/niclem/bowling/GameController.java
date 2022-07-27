@@ -1,31 +1,32 @@
 package org.niclem.bowling;
 
+import static org.niclem.bowling.impl.Frame.create;
+
 import org.jetbrains.annotations.NotNull;
-import org.niclem.bowling.impl.AbstractFrame;
-import org.niclem.bowling.impl.GameScoreResult;
-import org.niclem.bowling.impl.InitialFrame;
+import org.niclem.bowling.impl.Frame;
+import org.niclem.bowling.impl.GameScoreImpl;
 
 public class GameController {
-    private final GameScoreResult gameScoreResult;
-    private final AbstractFrame initialFrame;
-    private AbstractFrame currentFrame;
+    private final GameScoreImpl gameScore;
+    private final Frame initialFrame;
+    private Frame currentFrame;
 
     public GameController(@NotNull Rules rules) {
 
-        this.gameScoreResult = new GameScoreResult(rules);
-        this.initialFrame = new InitialFrame(rules);
+        this.gameScore = new GameScoreImpl(rules);
+        this.initialFrame = create(rules);
         this.currentFrame = initialFrame;
     }
 
-    public void registerRoll(int hitPins) {
+    public void play(int hitPins) {
 
         currentFrame = currentFrame.roll(hitPins);
-        initialFrame.updateScore(gameScoreResult);
+        initialFrame.updateScore(gameScore);
     }
 
     public GameScore getScore() {
 
-        return gameScoreResult;
+        return gameScore;
     }
 
     public boolean isFinished() {
@@ -37,7 +38,7 @@ public class GameController {
     public String toString() {
 
         return "BowlingGame{" +
-                "score=" + gameScoreResult +
+                "score=" + gameScore +
                 ", initialFrame=" + initialFrame +
                 ", currentFrame=" + currentFrame +
                 '}';

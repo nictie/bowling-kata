@@ -14,7 +14,7 @@ final class NullFrame extends AbstractFrame {
     }
 
     @Override
-    public void updateScore(GameScoreResult gameScoreResult) {
+    public void updateScore(GameScoreImpl gameScore) {
 
     }
 

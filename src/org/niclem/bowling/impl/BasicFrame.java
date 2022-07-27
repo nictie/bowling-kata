@@ -26,10 +26,10 @@ final class BasicFrame extends AbstractFrame {
     }
 
     @Override
-    public void updateScore(GameScoreResult gameScoreResult) {
+    public void updateScore(GameScoreImpl gameScore) {
 
-        calculator.updateScore(gameScoreResult);
-        nextFrame.updateScore(gameScoreResult);
+        calculator.updateScore(gameScore);
+        nextFrame.updateScore(gameScore);
     }
 
     @Override

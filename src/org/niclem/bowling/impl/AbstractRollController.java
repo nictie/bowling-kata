@@ -15,9 +15,9 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
     }
 
     @Override
-    public final void updateScore(GameScoreResult gameScoreResult) {
+    public final void updateScore(GameScoreImpl gameScore) {
 
-        rolls.forEach(roll -> roll.updateScore(gameScoreResult));
+        rolls.forEach(roll -> roll.updateScore(gameScore));
     }
 
     @Override

@@ -14,9 +14,9 @@ final class Roll implements GameScoreUpdater {
     }
 
     @Override
-    public void updateScore(GameScoreResult gameScoreResult) {
+    public void updateScore(GameScoreImpl gameScore) {
 
-        gameScoreResult.updateRollsOfFrame(frameNumber, number, score);
+        gameScore.updateRollsOfFrame(frameNumber, number, score);
     }
 
     public void addScoreTo(int[] result) {

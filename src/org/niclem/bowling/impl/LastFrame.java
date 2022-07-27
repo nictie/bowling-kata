@@ -26,9 +26,9 @@ final class LastFrame extends AbstractFrame {
     }
 
     @Override
-    public void updateScore(GameScoreResult gameScoreResult) {
+    public void updateScore(GameScoreImpl gameScore) {
 
-        calculator.updateScore(gameScoreResult);
+        calculator.updateScore(gameScore);
     }
 
     @Override
