@@ -43,13 +43,13 @@ public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, Roll
         if (rolls.size() < index + 1) {
             return;
         }
-        result[0] = result[0] + rolls.get(index).calculateScore();
+        rolls.get(index).addScoreTo(result);
     }
 
     @Override
     public void addRollScoreTo(int[] result) {
 
-        rolls.forEach(roll -> result[0] = result[0] + roll.calculateScore());
+        rolls.forEach(roll -> roll.addScoreTo(result));
     }
 
     protected abstract int getMaxRolls();
