@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ScreenModelUpdaterImpl implements ScreenModelUpdater, ScreenModel {
+public class GameScoreUpdaterImpl implements ScreenModelUpdater, GameScore {
 
     private final int[] frameScores;
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
 
-    public ScreenModelUpdaterImpl(Rules rules) {
+    public GameScoreUpdaterImpl(Rules rules) {
 
         numberOfFrames = rules.maxFrames();
         frameScores = initFrameScores(numberOfFrames);

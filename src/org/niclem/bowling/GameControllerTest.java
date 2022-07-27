@@ -10,16 +10,16 @@ import org.junit.jupiter.api.Test;
 
 public class GameControllerTest {
 
-    private ScreenModel screenModel;
+    private GameScore gameScore;
     private GameController gameController;
 
     @BeforeEach
     void setUp() {
 
         Rules rules = new Rules(2);
-        ScreenModelUpdaterImpl screenModel = new ScreenModelUpdaterImpl(rules);
-        this.gameController = new GameController(screenModel, rules);
-        this.screenModel = screenModel;
+        GameScoreUpdaterImpl gameScoreUpdater = new GameScoreUpdaterImpl(rules);
+        this.gameController = new GameController(gameScoreUpdater, rules);
+        this.gameScore = gameScoreUpdater;
     }
 
     @Test
@@ -34,7 +34,7 @@ public class GameControllerTest {
     void play() {
 
         Rules rules = new Rules(4);
-        ScreenModelUpdaterImpl screenModel = new ScreenModelUpdaterImpl(rules);
+        GameScoreUpdaterImpl screenModel = new GameScoreUpdaterImpl(rules);
         var gameController = new GameController(screenModel, rules);
 
         gameController.registerRoll(10);
@@ -58,9 +58,9 @@ public class GameControllerTest {
     void screenModel_initialized() {
 
         //assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(org.niclem.bowling.ScreenModel.NO_SCORE);
-        assertThat(screenModel.getFrameScore(1)).as(screenModel.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
-        assertThat(screenModel.getRollScore(1, 1)).as(screenModel.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
-        assertThat(screenModel.getRollScore(1, 2)).as(screenModel.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
+        assertThat(gameScore.getFrameScore(1)).as(gameScore.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
+        assertThat(gameScore.getRollScore(1, 1)).as(gameScore.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
+        assertThat(gameScore.getRollScore(1, 2)).as(gameScore.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
     }
 
     @Test
@@ -69,9 +69,9 @@ public class GameControllerTest {
 
         gameController.registerRoll(1);
 
-        assertThat(screenModel.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
+        assertThat(gameScore.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
+        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
     }
 
     @Test
@@ -81,9 +81,9 @@ public class GameControllerTest {
         gameController.registerRoll(1);
         gameController.registerRoll(4);
 
-        assertThat(screenModel.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(screenModel.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(4);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(5);
+        assertThat(gameScore.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
+        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(4);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(5);
     }
 
     @Test
@@ -91,21 +91,21 @@ public class GameControllerTest {
     void spare() {
 
         gameController.registerRoll(1);
-        assertThat(screenModel.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
+        assertThat(gameScore.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
 
         gameController.registerRoll(9);
-        assertThat(screenModel.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(9);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
+        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(9);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
 
         gameController.registerRoll(2);
-        assertThat(screenModel.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(2);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
+        assertThat(gameScore.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(2);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
 
         gameController.registerRoll(3);
-        assertThat(screenModel.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(3);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
-        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(17);
+        assertThat(gameScore.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(3);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
+        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(17);
     }
 
     @Test
@@ -113,15 +113,15 @@ public class GameControllerTest {
     void strike() {
 
         gameController.registerRoll(10);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
 
         gameController.registerRoll(1);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(11);
-        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(12);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(11);
+        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(12);
 
         gameController.registerRoll(2);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(13);
-        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(16);
+        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(13);
+        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(16);
     }
 
     @Test
@@ -152,10 +152,10 @@ public class GameControllerTest {
         gameController.registerRoll(4); //extra roll
         assertThat(gameController.isFinished()).isTrue();
 
-        assertThat(screenModel.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(3);
-        assertThat(screenModel.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(7);
-        assertThat(screenModel.getRollScore(2, 3)).as(gameController.toString()).isEqualTo(4);
-        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(14);
+        assertThat(gameScore.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(3);
+        assertThat(gameScore.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(7);
+        assertThat(gameScore.getRollScore(2, 3)).as(gameController.toString()).isEqualTo(4);
+        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(14);
     }
 
     @Test
@@ -167,11 +167,11 @@ public class GameControllerTest {
 
         gameController.registerRoll(10);
         assertThat(gameController.isFinished()).as(gameController.toString()).isFalse();
-        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(10);
+        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(10);
 
         gameController.registerRoll(1);
         assertThat(gameController.isFinished()).as(gameController.toString()).isTrue();
-        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(11);
+        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(11);
     }
 
 }
