@@ -8,7 +8,7 @@ public class NullScoreCalculator extends FrameScoreCalculatorAbstract {
     }
 
     @Override
-    public int calculateScore() {
+    protected int calculateScore() {
 
         return 0;
     }

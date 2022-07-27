@@ -1,6 +1,6 @@
 package org.niclem.bowling.impl;
 
-public abstract class FrameScoreCalculatorAbstract implements ScoreCalculator, ScreenUpdater {
+public abstract class FrameScoreCalculatorAbstract implements ScreenUpdater {
 
     protected final RollScoreCalculator controller;
     private final int number;
@@ -11,7 +11,14 @@ public abstract class FrameScoreCalculatorAbstract implements ScoreCalculator, S
         this.number = frameNumber;
     }
 
-    public abstract int calculateScore();
+    @Override
+    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+
+        screenModelUpdater.updateFrameScore(number, calculateScore());
+        controller.updateScore(screenModelUpdater);
+    }
+
+    protected abstract int calculateScore();
 
     final void addFrameScoreTo(int[] result) {
 
@@ -21,12 +28,5 @@ public abstract class FrameScoreCalculatorAbstract implements ScoreCalculator, S
     final void addRollScoreTo(int[] result, int index) {
 
         controller.addRollScoreTo(result, index);
-    }
-
-    @Override
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
-
-        screenModelUpdater.updateFrameScore(number, calculateScore());
-        controller.updateScore(screenModelUpdater);
     }
 }

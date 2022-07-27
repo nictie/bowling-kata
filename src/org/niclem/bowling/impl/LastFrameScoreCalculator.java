@@ -11,7 +11,7 @@ public class LastFrameScoreCalculator extends FrameScoreCalculatorAbstract {
     }
 
     @Override
-    public int calculateScore() {
+    protected int calculateScore() {
 
         final int[] result = { 0 };
         controller.addRollScoreTo(result);
