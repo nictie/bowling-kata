@@ -14,9 +14,9 @@ final class LastFrameRollController extends AbstractRollController {
     @Override
     protected int calculateMaxRolls() {
 
-        int result = maxRolls;
+        int result = MAX_ROLLS;
         if (isSpare()) {
-            result = maxRolls + spareBonusRoll;
+            result = MAX_ROLLS + SPARE_BONUS_ROLL;
         }
         return result;
     }

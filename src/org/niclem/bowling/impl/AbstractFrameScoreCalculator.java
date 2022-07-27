@@ -20,13 +20,13 @@ abstract class AbstractFrameScoreCalculator implements GameScoreUpdater {
 
     protected abstract int calculateScore();
 
-    final void addFrameScoreTo(int[] result) {
+    final void addFrameScoreTo(int ... result) {
 
         result[0] = result[0] + calculateScore();
     }
 
-    final void addRollScoreTo(int[] result, int index) {
+    final void addRollScoreTo(int index, int ... result) {
 
-        controller.addRollScoreTo(result, index);
+        controller.addRollScoreTo(index, result);
     }
 }

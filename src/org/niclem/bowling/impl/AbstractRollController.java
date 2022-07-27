@@ -4,9 +4,9 @@ import java.util.List;
 
 abstract class AbstractRollController implements RollScoreCalculator, RollController {
 
-    protected static final int maxRolls = 2;
-    protected static final int highScore = 10;
-    static final int spareBonusRoll = 1;
+    protected static final int MAX_ROLLS = 2;
+    protected static final int HIGH_SCORE = 10;
+    protected static final int SPARE_BONUS_ROLL = 1;
     protected final List<Roll> rolls;
 
     AbstractRollController(List<Roll> rolls) {
@@ -34,7 +34,7 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
     protected abstract int calculateMaxRolls();
 
     @Override
-    public final void addRollScoreTo(int[] result, int index) {
+    public final void addRollScoreTo(int index, int... result) {
 
         if (rolls.size() < index + 1) {
             return;
@@ -43,7 +43,7 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
     }
 
     @Override
-    public final void addRollScoreTo(int[] result) {
+    public final void addRollScoreTo(int ... result) {
 
         rolls.forEach(roll -> roll.addScoreTo(result));
     }
@@ -51,13 +51,13 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
     @Override
     public boolean isStrike() {
 
-        return rolls.size() < maxRolls && getRollScore() == highScore;
+        return rolls.size() < MAX_ROLLS && getRollScore() == HIGH_SCORE;
     }
 
     @Override
     public boolean isSpare() {
 
-        return rolls.size() == maxRolls && getRollScore() == highScore;
+        return rolls.size() == MAX_ROLLS && getRollScore() == HIGH_SCORE;
     }
 
     @Override

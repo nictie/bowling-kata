@@ -2,137 +2,95 @@ package org.niclem.bowling;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.niclem.bowling.GameScore.NO_SCORE;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class GameControllerTest {
-
+class GameControllerTest {
     private GameScore gameScore;
     private GameController gameController;
+    private int maxFrames;
 
     @BeforeEach
     void setUp() {
 
-        Rules rules = new Rules(2);
-        this.gameController = new GameController( rules);
+        maxFrames = 2;
+        Rules rules = new Rules(maxFrames);
+        this.gameController = new GameController(rules);
         this.gameScore = gameController.getScore();
     }
 
     @Test
-    @DisplayName("Rules without frames is not allowed")
-    void init_rules_with_0_frames() {
+    @DisplayName("Maximum number of frames should be bigger than 0")
+    void initRulesWithZeroMaxFrameNumber() {
 
-        assertThatThrownBy(()-> new Rules(0)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Rules(0)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    @DisplayName("Play bowling game with four frames")
-    void play() {
+    @DisplayName("Initial game score should be NO_SCORE of all frames and rolls.")
+    void initialGameScore() {
 
-        Rules rules = new Rules(4);
-        var gameController = new GameController(rules);
-        var screenModel = gameController.getScore();
-
-        gameController.play(10);
-        assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
-
-        gameController.play(0);
-        gameController.play(1);
-        assertThat(screenModel.getFrameScore(2)).as(gameController.toString()).isEqualTo(12);
-
-        gameController.play(1);
-        gameController.play(9);
-        assertThat(screenModel.getFrameScore(3)).as(gameController.toString()).isEqualTo(22);
-
-        gameController.play(10);
-        gameController.play(1);
-        assertThat(screenModel.getFrameScore(4)).as(gameController.toString()).isEqualTo(43);
+        checkNoScoreFromFrame(1);
     }
 
     @Test
-    @DisplayName("The screen model is initialized correctly.")
-    void screenModel_initialized() {
-
-        //assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(org.niclem.bowling.ScreenModel.NO_SCORE);
-        assertThat(gameScore.getFrameScore(1)).as(gameScore.toString()).isEqualTo(GameScore.NO_SCORE);
-        assertThat(gameScore.getRollScore(1, 1)).as(gameScore.toString()).isEqualTo(GameScore.NO_SCORE);
-        assertThat(gameScore.getRollScore(1, 2)).as(gameScore.toString()).isEqualTo(GameScore.NO_SCORE);
-    }
-
-    @Test
-    @DisplayName("Open - first roll.")
-    void open_first_roll_is_one() {
+    @DisplayName("Count the first roll")
+    void playFirstRoll() {
 
         gameController.play(1);
 
-        assertThat(gameScore.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(GameScore.NO_SCORE);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
+        checkScoreOfFrame(1, 1, 1, NO_SCORE);
+        checkNoScoreFromFrame(maxFrames - 1);
     }
 
     @Test
-    @DisplayName("Open - second roll.")
-    void open_second_roll_is_four() {
+    @DisplayName("Count the second roll")
+    void playSecondRoll() {
 
         gameController.play(1);
         gameController.play(4);
 
-        assertThat(gameScore.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(4);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(5);
+        checkScoreOfFrame(1, 5, 1, 4);
+        checkNoScoreFromFrame(maxFrames - 1);
     }
 
     @Test
-    @DisplayName("Not last frame - spare - add bonus.")
-    void spare() {
+    @DisplayName("First frame has a - spare - should add the bonus of the next roll")
+    void spareCountInFirstFrame() {
 
         gameController.play(1);
-        assertThat(gameScore.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
-
         gameController.play(9);
-        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(9);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
 
         gameController.play(2);
-        assertThat(gameScore.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(2);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
 
-        gameController.play(3);
-        assertThat(gameScore.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(3);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(12);
-        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(17);
+        checkScoreOfFrame(1, 12, 1, 9);
     }
 
     @Test
-    @DisplayName("Not last frame - strike - add bonus.")
-    void strike() {
+    @DisplayName("First frame has a - strike - should add the bonus of the next two rolls")
+    void strikeCountInFirstFrame() {
 
         gameController.play(10);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
 
         gameController.play(1);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(11);
-        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(12);
-
         gameController.play(2);
-        assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(13);
-        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(16);
+
+        checkScoreOfFrame(1, 13, 10, NO_SCORE);
     }
 
     @Test
-    @DisplayName("Outside roll - throws exception.")
-    void outside_roll_no_spare() {
+    @DisplayName("A roll after the last frame is finished - should throws an exception")
+    void rollAfterFinish() {
 
         gameController.play(1);
         gameController.play(2); //3
 
         gameController.play(3);
         gameController.play(4); //no spare
-        assertThat(gameController.isFinished()).isTrue();
 
         //next roll not allowed
         ThrowingCallable throwable = () -> gameController.play(5);
@@ -140,8 +98,47 @@ public class GameControllerTest {
     }
 
     @Test
-    @DisplayName("Last frame - spare - add bonus.")
-    void spare_last() {
+    @DisplayName("The game should be finished with last regular roll")
+    void gameIsFinishedWithLastRoll() {
+
+        gameController.play(1);
+        gameController.play(2);
+        gameController.play(3);
+        gameController.play(4);
+
+        assertThat(gameController.isFinished()).isTrue();
+    }
+
+    @Test
+    @DisplayName("The game should be finished with bonus roll than a spare has been thrown")
+    void gameIsFinishedWithSpare() {
+
+        gameController.play(1);
+        gameController.play(2);
+
+        gameController.play(3);
+        gameController.play(7);
+        gameController.play(4);
+
+        assertThat(gameController.isFinished()).isTrue();
+    }
+
+    @Test
+    @DisplayName("The game should be finished with bonus roll than a strike has been thrown")
+    void gameIsFinishedWithStrike() {
+
+        gameController.play(1);
+        gameController.play(2);
+
+        gameController.play(10);
+        gameController.play(3);
+
+        assertThat(gameController.isFinished()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Count the bonus roll than a spare has been thrown in the last frame")
+    void spareCountBonusRollInLastFrame() {
 
         gameController.play(0);
         gameController.play(0); //0
@@ -149,28 +146,38 @@ public class GameControllerTest {
         gameController.play(3);
         gameController.play(7); //10
         gameController.play(4); //extra roll
-        assertThat(gameController.isFinished()).isTrue();
 
-        assertThat(gameScore.getRollScore(2, 1)).as(gameController.toString()).isEqualTo(3);
-        assertThat(gameScore.getRollScore(2, 2)).as(gameController.toString()).isEqualTo(7);
-        assertThat(gameScore.getRollScore(2, 3)).as(gameController.toString()).isEqualTo(4);
-        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(14);
+        checkScoreOfFrame(2, 14, 3, 7, 4);
     }
 
     @Test
-    @DisplayName("Last frame - strike - add bonus.")
-    void strike_last() {
+    @DisplayName("Count the bonus roll than a strike has been thrown in the last frame")
+    void strikeCountBonusRollInLastFrame() {
 
         gameController.play(0);
         gameController.play(0); //0
 
         gameController.play(10);
-        assertThat(gameController.isFinished()).as(gameController.toString()).isFalse();
-        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(10);
+        gameController.play(1); // bonus roll
 
-        gameController.play(1);
-        assertThat(gameController.isFinished()).as(gameController.toString()).isTrue();
-        assertThat(gameScore.getFrameScore(2)).as(gameController.toString()).isEqualTo(11);
+        checkScoreOfFrame(2, 11, 10, 1);
+    }
+
+    private void checkNoScoreFromFrame(int frameNumber) {
+
+        for (int i = frameNumber; i == maxFrames; i++) {
+            assertThat(gameScore.getRollScore(i, 1)).as(gameScore.toString()).isEqualTo(NO_SCORE);
+            assertThat(gameScore.getRollScore(i, 2)).as(gameScore.toString()).isEqualTo(NO_SCORE);
+            assertThat(gameScore.getFrameScore(i)).as(gameScore.toString()).isEqualTo(NO_SCORE);
+        }
+    }
+
+    private void checkScoreOfFrame(int frameNumber, int frameScore, int... rollScores) {
+
+        assertThat(gameScore.getFrameScore(frameNumber)).as(gameController.toString()).isEqualTo(frameScore);
+        for (int i = 0; i < rollScores.length; i++) {
+            assertThat(gameScore.getRollScore(frameNumber, i + 1)).as(gameController.toString()).isEqualTo(rollScores[i]);
+        }
     }
 
 }

@@ -12,12 +12,12 @@ final class NullFrameRollScoreCalculator implements RollScoreCalculator {
     }
 
     @Override
-    public void addRollScoreTo(int[] result, int index) {
+    public void addRollScoreTo(int index, int... result) {
 
     }
 
     @Override
-    public void addRollScoreTo(int[] result) {
+    public void addRollScoreTo(int... result) {
 
     }
 

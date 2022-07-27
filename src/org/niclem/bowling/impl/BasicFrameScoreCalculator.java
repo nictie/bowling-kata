@@ -30,10 +30,10 @@ final class BasicFrameScoreCalculator extends AbstractFrameScoreCalculator {
     private void addBonusTo(int[] result, AbstractFrameScoreCalculator frameScore) {
 
         if (controller.isSpare()) {
-            frameScore.addRollScoreTo(result, 0);
+            frameScore.addRollScoreTo(0, result);
         } else if (controller.isStrike()) {
-            frameScore.addRollScoreTo(result, 0);
-            frameScore.addRollScoreTo(result, 1);
+            frameScore.addRollScoreTo(0, result);
+            frameScore.addRollScoreTo(1, result);
         }
     }
 

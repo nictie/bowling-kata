@@ -12,7 +12,7 @@ final class BasicFrameRollController extends AbstractRollController {
     @Override
     protected int calculateMaxRolls() {
 
-        int result = maxRolls;
+        int result = MAX_ROLLS;
         if (isStrike()) {
             result = 1;
         }

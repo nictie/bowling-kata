@@ -19,7 +19,7 @@ final class Roll implements GameScoreUpdater {
         gameScore.updateRollsOfFrame(frameNumber, number, score);
     }
 
-    public void addScoreTo(int[] result) {
+    public void addScoreTo(int ... result) {
 
         if (result == null) {
             return;
