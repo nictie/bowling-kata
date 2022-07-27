@@ -2,15 +2,15 @@ package org.niclem.bowling.impl;
 
 import java.util.ArrayList;
 
-public class RollCounter extends AbstractRollCounter {
+public class FrameRollCalculator extends FrameRollCalculatorAbstract {
 
-    public RollCounter() {
+    public FrameRollCalculator() {
 
         super(new ArrayList<>());
     }
 
     @Override
-    protected boolean isSpare() {
+    public boolean isSpare() {
 
         return rolls.size() == maxRolls && getRollScore() == highScore;
     }

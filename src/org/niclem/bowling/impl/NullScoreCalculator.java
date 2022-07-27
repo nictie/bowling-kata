@@ -4,7 +4,7 @@ public class NullScoreCalculator extends FrameScoreCalculatorAbstract {
 
     public NullScoreCalculator() {
 
-        super(new NullRollCounter());
+        super(new NullFrameRollCalculator());
     }
 
     @Override

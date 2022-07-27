@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LastFrame extends FrameAbstract {
 
-    public LastFrame(int frameNumber, @NotNull LastRollCounter rollCounter, @NotNull LastScoreCalculator scoreCalculator) {
+    public LastFrame(int frameNumber, @NotNull LastFrameRollCalculator rollCounter, @NotNull LastFrameScoreCalculator scoreCalculator) {
 
         super(frameNumber, rollCounter, scoreCalculator);
     }

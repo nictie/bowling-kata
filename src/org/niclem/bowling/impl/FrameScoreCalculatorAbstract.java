@@ -2,11 +2,11 @@ package org.niclem.bowling.impl;
 
 public abstract class FrameScoreCalculatorAbstract implements ScoreCalculator {
 
-    protected final AbstractRollCounter rollCounter;
+    protected final RollScoreCalculator controller;
 
-    public FrameScoreCalculatorAbstract(AbstractRollCounter rollCounter) {
+    public FrameScoreCalculatorAbstract(RollScoreCalculator controller) {
 
-        this.rollCounter = rollCounter;
+        this.controller = controller;
     }
 
     public abstract int calculateScore();
@@ -18,11 +18,6 @@ public abstract class FrameScoreCalculatorAbstract implements ScoreCalculator {
 
     final void addRollScoreTo(int[] result, int index) {
 
-        rollCounter.addRollScoreTo(result, index);
-    }
-
-    final void addRollScoreTo(int[] result) {
-
-        rollCounter.addRollScoreTo(result);
+        controller.addRollScoreTo(result, index);
     }
 }

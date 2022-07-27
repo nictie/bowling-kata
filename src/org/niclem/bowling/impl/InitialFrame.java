@@ -9,7 +9,7 @@ public class InitialFrame extends FrameAbstract {
 
     public InitialFrame(Rules rules) {
 
-        super(0, new NullRollCounter(), new NullScoreCalculator());
+        super(0, new NullFrameRollCalculator(), new NullScoreCalculator());
         this.rules = rules;
     }
 
@@ -28,7 +28,7 @@ public class InitialFrame extends FrameAbstract {
 
     private FrameAbstract createNextFrame() {
 
-        var nextRollCounter = new RollCounter();
+        var nextRollCounter = new FrameRollCalculator();
         var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, new NullScoreCalculator());
 
         return new Frame(number + 1, rules, nextRollCounter, nextScoreCalculator);

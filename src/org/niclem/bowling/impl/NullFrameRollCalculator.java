@@ -1,0 +1,46 @@
+package org.niclem.bowling.impl;
+
+import java.util.Collections;
+
+public class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
+
+    public NullFrameRollCalculator() {
+
+        super(Collections.emptyList());
+    }
+
+    @Override
+    protected int getMaxRolls() {
+
+        return 0;
+    }
+
+    @Override
+    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+
+    }
+
+    @Override
+    public boolean isSpare() {
+
+        return false;
+    }
+
+    @Override
+    boolean addRoll(int hitPins, int frameNumber) {
+        return false;
+    }
+
+    @Override
+    int getRollScore() {
+
+        return 0;
+    }
+
+    @Override
+    boolean isFull() {
+
+        return false;
+    }
+
+}

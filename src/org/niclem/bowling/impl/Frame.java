@@ -8,9 +8,9 @@ public class Frame extends FrameAbstract {
     private final FrameScoreCalculator scoreCalculator;
     private FrameAbstract nextFrame;
 
-    public Frame(int number, Rules rules, @NotNull RollCounter rollCounter, @NotNull FrameScoreCalculator scoreCalculator) {
+    public Frame(int number, Rules rules, @NotNull FrameRollCalculator frameRollController, @NotNull FrameScoreCalculator scoreCalculator) {
 
-        super(number, rollCounter, scoreCalculator);
+        super(number, frameRollController, scoreCalculator);
         this.rules = rules;
         this.scoreCalculator = scoreCalculator;
         this.nextFrame = new NullFrame();
@@ -48,7 +48,7 @@ public class Frame extends FrameAbstract {
 
     private FrameAbstract createNextFrame() {
 
-        var nextRollCounter = new RollCounter();
+        var nextRollCounter = new FrameRollCalculator();
         var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, scoreCalculator);
         scoreCalculator.setNext(nextScoreCalculator);
 
@@ -57,8 +57,8 @@ public class Frame extends FrameAbstract {
 
     private FrameAbstract createLastFrame() {
 
-        var nextRollCounter = new LastRollCounter();
-        var nextScoreCalculator = new LastScoreCalculator(nextRollCounter, scoreCalculator);
+        var nextRollCounter = new LastFrameRollCalculator();
+        var nextScoreCalculator = new LastFrameScoreCalculator(nextRollCounter, scoreCalculator);
         scoreCalculator.setNext(nextScoreCalculator);
 
         return new LastFrame(number + 1, nextRollCounter, nextScoreCalculator);

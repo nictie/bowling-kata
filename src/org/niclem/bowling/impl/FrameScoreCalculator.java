@@ -2,35 +2,39 @@ package org.niclem.bowling.impl;
 
 public class FrameScoreCalculator extends FrameScoreCalculatorAbstract {
 
-    private final FrameScoreCalculatorAbstract previousFrame;
-    private FrameScoreCalculatorAbstract nextFrame;
+    private final FrameScoreCalculatorAbstract previousFrameScore;
+    private FrameScoreCalculatorAbstract nextFrameScore;
 
-    public FrameScoreCalculator(RollCounter rollCounter, FrameScoreCalculatorAbstract previousFrame) {
+    public FrameScoreCalculator(RollScoreCalculator controller, FrameScoreCalculatorAbstract previousFrameScore) {
 
-        super(rollCounter);
-
-        this.previousFrame = previousFrame;
-        this.nextFrame = new NullScoreCalculator();
+        super(controller);
+        this.previousFrameScore = previousFrameScore;
+        this.nextFrameScore = new NullScoreCalculator();
     }
 
-    public void setNext(FrameScoreCalculatorAbstract aFrame) {
+    public void setNext(FrameScoreCalculatorAbstract nextFrameScore) {
 
-        nextFrame = aFrame;
+        this.nextFrameScore = nextFrameScore;
     }
-
 
     @Override
     public int calculateScore() {
 
         final int[] result = { 0 };
-        addRollScoreTo(result);
-        if (rollCounter.isSpare()) {
-            nextFrame.addRollScoreTo(result, 0);
-        } else if (rollCounter.isStrike()) {
-            nextFrame.addRollScoreTo(result, 0);
-            nextFrame.addRollScoreTo(result, 1);
-        }
-        previousFrame.addFrameScoreTo(result);
+        controller.addRollScoreTo(result);
+        previousFrameScore.addFrameScoreTo(result);
+        addBonusTo(result, nextFrameScore);
         return result[0];
     }
+
+    private void addBonusTo(int[] result, FrameScoreCalculatorAbstract nextFrameScore) {
+
+        if (controller.isSpare()) {
+            nextFrameScore.addRollScoreTo(result, 0);
+        } else if (controller.isStrike()) {
+            nextFrameScore.addRollScoreTo(result, 0);
+            nextFrameScore.addRollScoreTo(result, 1);
+        }
+    }
+
 }

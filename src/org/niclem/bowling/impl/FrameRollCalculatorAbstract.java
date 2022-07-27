@@ -2,14 +2,14 @@ package org.niclem.bowling.impl;
 
 import java.util.List;
 
-public abstract class AbstractRollCounter implements ScreenUpdater {
+public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, RollScoreCalculator {
 
     protected static final int maxRolls = 2;
     protected static final int highScore = 10;
     static final int spareBonusRoll = 1;
     protected final List<Roll> rolls;
 
-    public AbstractRollCounter(List<Roll> rolls) {
+    public FrameRollCalculatorAbstract(List<Roll> rolls) {
 
         this.rolls = rolls;
     }
@@ -37,7 +37,8 @@ public abstract class AbstractRollCounter implements ScreenUpdater {
         return rollScore[0];
     }
 
-    void addRollScoreTo(int[] result, int index) {
+    @Override
+    public void addRollScoreTo(int[] result, int index) {
 
         if (rolls.size() < index + 1) {
             return;
@@ -45,16 +46,16 @@ public abstract class AbstractRollCounter implements ScreenUpdater {
         result[0] = result[0] + rolls.get(index).calculateScore();
     }
 
-    void addRollScoreTo(int[] result) {
+    @Override
+    public void addRollScoreTo(int[] result) {
 
         rolls.forEach(roll -> result[0] = result[0] + roll.calculateScore());
     }
 
-    protected abstract boolean isSpare();
-
     protected abstract int getMaxRolls();
 
-    boolean isStrike() {
+    @Override
+    public boolean isStrike() {
 
         return rolls.size() < maxRolls && getRollScore() == highScore;
     }
