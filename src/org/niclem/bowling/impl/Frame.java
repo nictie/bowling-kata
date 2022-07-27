@@ -5,15 +5,15 @@ import org.niclem.bowling.Rules;
 
 public class Frame extends FrameAbstract {
     private final Rules rules;
-    private final @NotNull FrameController controller;
+    private final @NotNull FrameRollController frameRollController;
     private final FrameScoreCalculator scoreCalculator;
     private FrameAbstract nextFrame;
 
-    public Frame(int number, Rules rules, @NotNull FrameController controller, @NotNull FrameScoreCalculator scoreCalculator) {
+    public Frame(int number, Rules rules, @NotNull FrameRollController frameRollController, @NotNull FrameScoreCalculator scoreCalculator) {
 
         super(number, scoreCalculator);
         this.rules = rules;
-        this.controller = controller;
+        this.frameRollController = frameRollController;
         this.scoreCalculator = scoreCalculator;
         this.nextFrame = new NullFrame();
     }
@@ -23,7 +23,7 @@ public class Frame extends FrameAbstract {
 
         FrameAbstract result;
 
-        if (controller.addRoll(hitPins, number)) {
+        if (frameRollController.addRoll(hitPins, number)) {
             result = this;
         } else {
             if (rules.isNextFrame(number)) {
@@ -77,7 +77,7 @@ public class Frame extends FrameAbstract {
 
         return "\nFrame{" +
                 "number=" + number +
-                ", controller=" + controller +
+                ", controller=" + frameRollController +
                 '}';
     }
 }

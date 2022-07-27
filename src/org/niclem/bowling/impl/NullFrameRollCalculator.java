@@ -10,7 +10,7 @@ public class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
     }
 
     @Override
-    protected int getMaxRolls() {
+    protected int calculateMaxRolls() {
 
         return 0;
     }

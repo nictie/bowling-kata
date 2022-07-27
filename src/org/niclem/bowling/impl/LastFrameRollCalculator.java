@@ -22,7 +22,7 @@ public class LastFrameRollCalculator extends FrameRollCalculatorAbstract {
     }
 
     @Override
-    protected int getMaxRolls() {
+    protected int calculateMaxRolls() {
 
         int result = maxRolls;
         if (isSpare()) {
