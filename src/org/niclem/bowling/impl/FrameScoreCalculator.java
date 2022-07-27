@@ -9,7 +9,7 @@ final class FrameScoreCalculator extends FrameScoreCalculatorAbstract {
 
         super(controller, frameNumber);
         this.previousFrameScore = previousFrameScore;
-        this.nextFrameScore = new NullScoreCalculator();
+        this.nextFrameScore = new NullFrameScoreCalculator();
     }
 
     public void setNext(FrameScoreCalculatorAbstract nextFrameScore) {

@@ -4,20 +4,20 @@ import org.jetbrains.annotations.NotNull;
 import org.niclem.bowling.Rules;
 
 final class Frame extends FrameAbstract {
-    private final FrameController controller;
+    private final FrameChainController chainController;
     private FrameAbstract nextFrame;
 
-    Frame(int number, Rules rules, @NotNull FrameRollController rollController, @NotNull FrameScoreCalculator calculator) {
+    Frame(int number, Rules rules, @NotNull RollController rollController, @NotNull FrameScoreCalculator calculator) {
 
         super(number, calculator);
         nextFrame = new NullFrame();
-        controller = new FrameController(this, rules, rollController, calculator);
+        chainController = new FrameChainController(this, rules, rollController, calculator);
     }
 
     @Override
     public FrameAbstract roll(int hitPins) {
 
-        return controller.roll(hitPins);
+        return chainController.roll(hitPins);
     }
 
     void setNextFrame(FrameAbstract nextFrame) {
@@ -43,7 +43,7 @@ final class Frame extends FrameAbstract {
 
         return "\nFrame{" +
                 "number=" + number +
-                ", controller=" + controller +
+                ", controller=" + chainController +
                 '}';
     }
 }

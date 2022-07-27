@@ -2,23 +2,13 @@ package org.niclem.bowling.impl;
 
 import java.util.ArrayList;
 
-final class LastFrameRollCalculator extends FrameRollCalculatorAbstract {
+final class LastFrameRollController extends RollControllerAbstract {
 
     private boolean isSpare = false;
 
-    LastFrameRollCalculator() {
+    LastFrameRollController() {
 
         super(new ArrayList<>());
-    }
-
-    @Override
-    public boolean isSpare() {
-
-        boolean result = rolls.size() == maxRolls && getRollScore() == highScore;
-        if (result) {
-            isSpare = true;
-        }
-        return isSpare;
     }
 
     @Override
@@ -29,5 +19,14 @@ final class LastFrameRollCalculator extends FrameRollCalculatorAbstract {
             result = maxRolls + spareBonusRoll;
         }
         return result;
+    }
+
+    @Override
+    public boolean isSpare() {
+
+        if (super.isSpare()) {
+            isSpare = true;
+        }
+        return isSpare;
     }
 }

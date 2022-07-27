@@ -2,26 +2,26 @@ package org.niclem.bowling.impl;
 
 import java.util.List;
 
-abstract class FrameRollCalculatorAbstract implements GameScoreUpdater, RollScoreCalculator, FrameRollController {
+abstract class RollControllerAbstract implements RollScoreCalculator, RollController {
 
     protected static final int maxRolls = 2;
     protected static final int highScore = 10;
     static final int spareBonusRoll = 1;
     protected final List<Roll> rolls;
 
-    FrameRollCalculatorAbstract(List<Roll> rolls) {
+    RollControllerAbstract(List<Roll> rolls) {
 
         this.rolls = rolls;
     }
 
     @Override
-    public void updateScore(GameScoreResult gameScoreResult) {
+    public final void updateScore(GameScoreResult gameScoreResult) {
 
         rolls.forEach(roll -> roll.updateScore(gameScoreResult));
     }
 
     @Override
-    public boolean addRoll(int hitPins, int frameNumber) {
+    public final boolean addRoll(int hitPins, int frameNumber) {
 
         boolean result = false;
         if (rolls.size() < calculateMaxRolls()) {
@@ -31,8 +31,10 @@ abstract class FrameRollCalculatorAbstract implements GameScoreUpdater, RollScor
         return result;
     }
 
+    protected abstract int calculateMaxRolls();
+
     @Override
-    public void addRollScoreTo(int[] result, int index) {
+    public final void addRollScoreTo(int[] result, int index) {
 
         if (rolls.size() < index + 1) {
             return;
@@ -41,12 +43,10 @@ abstract class FrameRollCalculatorAbstract implements GameScoreUpdater, RollScor
     }
 
     @Override
-    public void addRollScoreTo(int[] result) {
+    public final void addRollScoreTo(int[] result) {
 
         rolls.forEach(roll -> roll.addScoreTo(result));
     }
-
-    protected abstract int calculateMaxRolls();
 
     @Override
     public boolean isStrike() {
@@ -55,12 +55,18 @@ abstract class FrameRollCalculatorAbstract implements GameScoreUpdater, RollScor
     }
 
     @Override
+    public boolean isSpare() {
+
+        return rolls.size() == maxRolls && getRollScore() == highScore;
+    }
+
+    @Override
     public boolean isFull() {
 
         return rolls.size() == calculateMaxRolls();
     }
 
-    int getRollScore() {
+    final int getRollScore() {
 
         int[] rollScore = new int[1];
         addRollScoreTo(rollScore);

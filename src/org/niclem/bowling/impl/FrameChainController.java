@@ -3,14 +3,14 @@ package org.niclem.bowling.impl;
 import org.jetbrains.annotations.NotNull;
 import org.niclem.bowling.Rules;
 
-final class FrameController {
+final class FrameChainController {
 
     private final Frame parentFrame;
     private final Rules rules;
-    private final FrameRollController rollController;
+    private final RollController rollController;
     private final FrameScoreCalculator calculator;
 
-    FrameController(@NotNull Frame parentFrame,  Rules rules, @NotNull FrameRollController rollController, @NotNull FrameScoreCalculator calculator) {
+    FrameChainController(@NotNull Frame parentFrame,  Rules rules, @NotNull RollController rollController, @NotNull FrameScoreCalculator calculator) {
 
         this.parentFrame = parentFrame;
         this.rules = rules;
@@ -46,7 +46,7 @@ final class FrameController {
     private FrameAbstract createNextFrame() {
 
         int nextFrameNumber = parentFrame.getNumber() + 1;
-        var nextRollCounter = new FrameRollCalculator();
+        var nextRollCounter = new FrameRollController();
         var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
         calculator.setNext(nextScoreCalculator);
 
@@ -56,7 +56,7 @@ final class FrameController {
     private FrameAbstract createLastFrame() {
 
         int nextFrameNumber = parentFrame.getNumber() + 1;
-        var nextRollCounter = new LastFrameRollCalculator();
+        var nextRollCounter = new LastFrameRollController();
         var nextScoreCalculator = new LastFrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
         calculator.setNext(nextScoreCalculator);
 

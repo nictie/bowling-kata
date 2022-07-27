@@ -4,7 +4,7 @@ final class NullFrame extends FrameAbstract {
 
     NullFrame() {
 
-        super(-1, new NullScoreCalculator());
+        super(-1, new NullFrameScoreCalculator());
     }
 
     @Override

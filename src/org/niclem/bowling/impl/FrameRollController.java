@@ -1,8 +1,21 @@
 package org.niclem.bowling.impl;
 
-interface FrameRollController {
+import java.util.ArrayList;
 
-    boolean addRoll(int hitPins, int frameNumber);
+final class FrameRollController extends RollControllerAbstract {
 
-    boolean isFull();
+    FrameRollController() {
+
+        super(new ArrayList<>());
+    }
+
+    @Override
+    protected int calculateMaxRolls() {
+
+        int result = maxRolls;
+        if (isStrike()) {
+            result = 1;
+        }
+        return result;
+    }
 }
