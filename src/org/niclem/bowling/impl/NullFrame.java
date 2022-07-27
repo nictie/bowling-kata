@@ -4,7 +4,7 @@ public class NullFrame extends FrameAbstract {
 
     public NullFrame() {
 
-        super(-1, new NullFrameRollCalculator(), new NullScoreCalculator());
+        super(-1, new NullScoreCalculator());
     }
 
     @Override

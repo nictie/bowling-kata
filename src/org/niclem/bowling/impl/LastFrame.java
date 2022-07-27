@@ -4,9 +4,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class LastFrame extends FrameAbstract {
 
-    public LastFrame(int frameNumber, @NotNull LastFrameRollCalculator rollCounter, @NotNull LastFrameScoreCalculator scoreCalculator) {
+    private final LastFrameRollCalculator controller;
 
-        super(frameNumber, rollCounter, scoreCalculator);
+    public LastFrame(int frameNumber, @NotNull LastFrameRollCalculator controller, @NotNull LastFrameScoreCalculator scoreCalculator) {
+
+        super(frameNumber, scoreCalculator);
+        this.controller = controller;
     }
 
     @Override
@@ -14,7 +17,7 @@ public class LastFrame extends FrameAbstract {
 
         FrameAbstract result;
 
-        if (rollCounter.addRoll(hitPins, number)) {
+        if (controller.addRoll(hitPins, number)) {
             result = this;
         } else {
             throw new IllegalStateException("Game is over - no further roll allowed");
@@ -25,7 +28,7 @@ public class LastFrame extends FrameAbstract {
     @Override
     public boolean isLastFinished() {
 
-        return rollCounter.isFull();
+        return controller.isFull();
     }
 
     @Override
@@ -33,7 +36,7 @@ public class LastFrame extends FrameAbstract {
 
         return "\norg.niclem.bowling.impl.LastFrame{" +
                 "number=" + number +
-                ", rollCouunter=" + rollCounter +
+                ", rollCouunter=" + controller +
                 '}';
     }
 }

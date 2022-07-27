@@ -5,13 +5,15 @@ import org.niclem.bowling.Rules;
 
 public class Frame extends FrameAbstract {
     private final Rules rules;
+    private final FrameRollCalculator controller;
     private final FrameScoreCalculator scoreCalculator;
     private FrameAbstract nextFrame;
 
     public Frame(int number, Rules rules, @NotNull FrameRollCalculator frameRollController, @NotNull FrameScoreCalculator scoreCalculator) {
 
-        super(number, frameRollController, scoreCalculator);
+        super(number, scoreCalculator);
         this.rules = rules;
+        this.controller = frameRollController;
         this.scoreCalculator = scoreCalculator;
         this.nextFrame = new NullFrame();
     }
@@ -21,7 +23,7 @@ public class Frame extends FrameAbstract {
 
         FrameAbstract result;
 
-        if (rollCounter.addRoll(hitPins, number)) {
+        if (controller.addRoll(hitPins, number)) {
             result = this;
         } else {
             if (rules.isNextFrame(number)) {
@@ -49,7 +51,7 @@ public class Frame extends FrameAbstract {
     private FrameAbstract createNextFrame() {
 
         var nextRollCounter = new FrameRollCalculator();
-        var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, scoreCalculator);
+        var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, scoreCalculator, number + 1);
         scoreCalculator.setNext(nextScoreCalculator);
 
         return new Frame(number + 1, rules, nextRollCounter, nextScoreCalculator);
@@ -58,7 +60,7 @@ public class Frame extends FrameAbstract {
     private FrameAbstract createLastFrame() {
 
         var nextRollCounter = new LastFrameRollCalculator();
-        var nextScoreCalculator = new LastFrameScoreCalculator(nextRollCounter, scoreCalculator);
+        var nextScoreCalculator = new LastFrameScoreCalculator(nextRollCounter, scoreCalculator, number + 1);
         scoreCalculator.setNext(nextScoreCalculator);
 
         return new LastFrame(number + 1, nextRollCounter, nextScoreCalculator);
@@ -75,7 +77,7 @@ public class Frame extends FrameAbstract {
 
         return "\norg.niclem.bowling.impl.Frame{" +
                 "number=" + number +
-                ", rollsCounter=" + rollCounter +
+                ", controller=" + controller +
                 '}';
     }
 }

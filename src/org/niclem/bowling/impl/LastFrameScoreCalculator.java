@@ -4,9 +4,9 @@ public class LastFrameScoreCalculator extends FrameScoreCalculatorAbstract {
 
     private final FrameScoreCalculatorAbstract previousFrameScore;
 
-    public LastFrameScoreCalculator(RollScoreCalculator rollScoreCalculator, FrameScoreCalculatorAbstract previousFrameScore) {
+    public LastFrameScoreCalculator(RollScoreCalculator rollScoreCalculator, FrameScoreCalculatorAbstract previousFrameScore, int frameNumber) {
 
-        super(rollScoreCalculator);
+        super(rollScoreCalculator, frameNumber);
         this.previousFrameScore = previousFrameScore;
     }
 

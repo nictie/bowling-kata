@@ -4,12 +4,10 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class FrameAbstract implements ScreenUpdater {
     protected final int number;
-    protected final FrameRollCalculatorAbstract rollCounter;
-    protected final ScoreCalculator scoreCalculator;
+    protected final FrameScoreCalculatorAbstract scoreCalculator;
 
-    public FrameAbstract(int frameNumber, @NotNull FrameRollCalculatorAbstract rollCounter, @NotNull ScoreCalculator scoreCalculator) {
+    public FrameAbstract(int frameNumber, @NotNull FrameScoreCalculatorAbstract scoreCalculator) {
         this.number = frameNumber;
-        this.rollCounter = rollCounter;
         this.scoreCalculator = scoreCalculator;
     }
 
@@ -20,7 +18,6 @@ public abstract class FrameAbstract implements ScreenUpdater {
     @Override
     public void updateScore(ScreenModelUpdater screenModelUpdater) {
 
-        screenModelUpdater.updateFrameScore(number, scoreCalculator.calculateScore());
-        rollCounter.updateScore(screenModelUpdater);
+        scoreCalculator.updateScore(screenModelUpdater);
     }
 }
