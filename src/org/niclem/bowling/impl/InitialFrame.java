@@ -1,6 +1,7 @@
 package org.niclem.bowling.impl;
 
 import org.niclem.bowling.Rules;
+import org.niclem.bowling.ScreenModelUpdater;
 
 public class InitialFrame extends FrameAbstract {
 

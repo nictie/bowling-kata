@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.niclem.bowling.impl.ScreenModelUpdater;
-import org.niclem.bowling.impl.ScreenUpdater;
-
 public class ScreenModelUpdaterImpl implements ScreenModelUpdater, ScreenModel {
 
     private final int[] frameScores;
@@ -18,12 +15,6 @@ public class ScreenModelUpdaterImpl implements ScreenModelUpdater, ScreenModel {
         numberOfFrames = rules.maxFrames();
         frameScores = initFrameScores(numberOfFrames);
         rollsPerFrame = initRollsPerFrameScore(numberOfFrames);
-    }
-
-    @Override
-    public void updateModel(ScreenUpdater screenUpdater) {
-
-        screenUpdater.updateScore(this);
     }
 
     @Override

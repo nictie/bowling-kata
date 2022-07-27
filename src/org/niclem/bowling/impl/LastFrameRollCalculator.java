@@ -2,11 +2,11 @@ package org.niclem.bowling.impl;
 
 import java.util.ArrayList;
 
-public class LastFrameRollCalculator extends FrameRollCalculatorAbstract {
+final class LastFrameRollCalculator extends FrameRollCalculatorAbstract {
 
     private boolean isSpare = false;
 
-    public LastFrameRollCalculator() {
+    LastFrameRollCalculator() {
 
         super(new ArrayList<>());
     }

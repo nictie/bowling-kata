@@ -1,6 +1,6 @@
 package org.niclem.bowling.impl;
 
-public interface FrameRollController {
+interface FrameRollController {
 
     boolean addRoll(int hitPins, int frameNumber);
 

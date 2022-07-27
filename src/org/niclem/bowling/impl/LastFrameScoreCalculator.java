@@ -1,10 +1,10 @@
 package org.niclem.bowling.impl;
 
-public class LastFrameScoreCalculator extends FrameScoreCalculatorAbstract {
+final class LastFrameScoreCalculator extends FrameScoreCalculatorAbstract {
 
     private final FrameScoreCalculatorAbstract previousFrameScore;
 
-    public LastFrameScoreCalculator(RollScoreCalculator rollScoreCalculator, FrameScoreCalculatorAbstract previousFrameScore, int frameNumber) {
+    LastFrameScoreCalculator(RollScoreCalculator rollScoreCalculator, FrameScoreCalculatorAbstract previousFrameScore, int frameNumber) {
 
         super(rollScoreCalculator, frameNumber);
         this.previousFrameScore = previousFrameScore;

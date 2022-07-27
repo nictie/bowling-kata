@@ -1,8 +1,8 @@
 package org.niclem.bowling.impl;
 
-public class NullScoreCalculator extends FrameScoreCalculatorAbstract {
+final class NullScoreCalculator extends FrameScoreCalculatorAbstract {
 
-    public NullScoreCalculator() {
+    NullScoreCalculator() {
 
         super(new NullFrameRollCalculator(), -1);
     }

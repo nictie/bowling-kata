@@ -2,14 +2,16 @@ package org.niclem.bowling.impl;
 
 import java.util.List;
 
-public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, RollScoreCalculator, FrameRollController {
+import org.niclem.bowling.ScreenModelUpdater;
+
+abstract class FrameRollCalculatorAbstract implements ScreenUpdater, RollScoreCalculator, FrameRollController {
 
     protected static final int maxRolls = 2;
     protected static final int highScore = 10;
     static final int spareBonusRoll = 1;
     protected final List<Roll> rolls;
 
-    public FrameRollCalculatorAbstract(List<Roll> rolls) {
+    FrameRollCalculatorAbstract(List<Roll> rolls) {
 
         this.rolls = rolls;
     }

@@ -1,12 +1,13 @@
 package org.niclem.bowling.impl;
 
 import org.jetbrains.annotations.NotNull;
+import org.niclem.bowling.ScreenModelUpdater;
 
-public class LastFrame extends FrameAbstract {
+final class LastFrame extends FrameAbstract {
 
     private final @NotNull FrameRollController frameRollController;
 
-    public LastFrame(int frameNumber, @NotNull FrameRollController frameRollController, @NotNull LastFrameScoreCalculator scoreCalculator) {
+    LastFrame(int frameNumber, @NotNull FrameRollController frameRollController, @NotNull LastFrameScoreCalculator scoreCalculator) {
 
         super(frameNumber, scoreCalculator);
         this.frameRollController = frameRollController;
@@ -23,6 +24,12 @@ public class LastFrame extends FrameAbstract {
             throw new IllegalStateException("Game is over - no further roll allowed");
         }
         return result;
+    }
+
+    @Override
+    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+
+        calculator.updateScore(screenModelUpdater);
     }
 
     @Override

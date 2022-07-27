@@ -2,9 +2,11 @@ package org.niclem.bowling.impl;
 
 import java.util.Collections;
 
-public class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
+import org.niclem.bowling.ScreenModelUpdater;
 
-    public NullFrameRollCalculator() {
+final class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
+
+    NullFrameRollCalculator() {
 
         super(Collections.emptyList());
     }

@@ -2,9 +2,9 @@ package org.niclem.bowling.impl;
 
 import java.util.ArrayList;
 
-public class FrameRollCalculator extends FrameRollCalculatorAbstract {
+final class FrameRollCalculator extends FrameRollCalculatorAbstract {
 
-    public FrameRollCalculator() {
+    FrameRollCalculator() {
 
         super(new ArrayList<>());
     }

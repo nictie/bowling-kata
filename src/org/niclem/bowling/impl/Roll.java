@@ -1,12 +1,14 @@
 package org.niclem.bowling.impl;
 
-public final class Roll implements ScreenUpdater {
+import org.niclem.bowling.ScreenModelUpdater;
+
+final class Roll implements ScreenUpdater {
 
     private final int frameNumber;
     private final int number;
     private final int score;
 
-    public Roll(int frameNumber, int number, int score) {
+    Roll(int frameNumber, int number, int score) {
 
         this.frameNumber = frameNumber;
         this.number = number;

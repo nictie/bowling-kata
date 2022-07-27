@@ -1,6 +1,8 @@
 package org.niclem.bowling.impl;
 
-public interface ScreenUpdater {
+import org.niclem.bowling.ScreenModelUpdater;
+
+interface ScreenUpdater {
 
     void updateScore(ScreenModelUpdater screenModelUpdater);
 }

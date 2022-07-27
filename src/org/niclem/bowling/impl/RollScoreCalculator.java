@@ -1,6 +1,6 @@
 package org.niclem.bowling.impl;
 
-public interface RollScoreCalculator extends ScreenUpdater {
+interface RollScoreCalculator extends ScreenUpdater {
 
     void addRollScoreTo(int[] result, int index);
 

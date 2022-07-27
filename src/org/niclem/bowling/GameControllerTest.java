@@ -7,7 +7,6 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.niclem.bowling.impl.ScreenModelUpdater;
 
 public class GameControllerTest {
 

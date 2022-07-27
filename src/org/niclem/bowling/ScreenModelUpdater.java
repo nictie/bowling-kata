@@ -1,9 +1,8 @@
-package org.niclem.bowling.impl;
+package org.niclem.bowling;
 
 public interface ScreenModelUpdater {
-    Integer NO_SCORE = -1;
 
-    void updateModel(ScreenUpdater screenUpdater);
+    Integer NO_SCORE = -1;
 
     void updateFrameScore(int number, int score);
 

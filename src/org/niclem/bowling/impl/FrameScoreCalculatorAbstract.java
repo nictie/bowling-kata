@@ -1,11 +1,13 @@
 package org.niclem.bowling.impl;
 
-public abstract class FrameScoreCalculatorAbstract implements ScreenUpdater {
+import org.niclem.bowling.ScreenModelUpdater;
+
+abstract class FrameScoreCalculatorAbstract implements ScreenUpdater {
 
     protected final RollScoreCalculator controller;
     private final int number;
 
-    public FrameScoreCalculatorAbstract(RollScoreCalculator controller, int frameNumber) {
+    FrameScoreCalculatorAbstract(RollScoreCalculator controller, int frameNumber) {
 
         this.controller = controller;
         this.number = frameNumber;

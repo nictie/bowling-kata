@@ -1,8 +1,10 @@
 package org.niclem.bowling.impl;
 
-public class NullFrame extends FrameAbstract {
+import org.niclem.bowling.ScreenModelUpdater;
 
-    public NullFrame() {
+final class NullFrame extends FrameAbstract {
+
+    NullFrame() {
 
         super(-1, new NullScoreCalculator());
     }
