@@ -2,9 +2,9 @@ package org.niclem.bowling.impl;
 
 import java.util.ArrayList;
 
-final class FrameRollController extends RollControllerAbstract {
+final class BasicFrameRollController extends AbstractRollController {
 
-    FrameRollController() {
+    BasicFrameRollController() {
 
         super(new ArrayList<>());
     }

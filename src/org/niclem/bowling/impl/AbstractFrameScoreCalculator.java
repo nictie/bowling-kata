@@ -1,11 +1,11 @@
 package org.niclem.bowling.impl;
 
-abstract class FrameScoreCalculatorAbstract implements GameScoreUpdater {
+abstract class AbstractFrameScoreCalculator implements GameScoreUpdater {
 
     protected final RollScoreCalculator controller;
     private final int number;
 
-    FrameScoreCalculatorAbstract(RollScoreCalculator controller, int frameNumber) {
+    AbstractFrameScoreCalculator(RollScoreCalculator controller, int frameNumber) {
 
         this.controller = controller;
         this.number = frameNumber;

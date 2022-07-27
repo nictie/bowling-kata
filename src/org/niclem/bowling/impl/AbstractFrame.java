@@ -2,17 +2,17 @@ package org.niclem.bowling.impl;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class FrameAbstract implements GameScoreUpdater {
+public abstract class AbstractFrame implements GameScoreUpdater {
 
     protected final int number;
-    protected final FrameScoreCalculatorAbstract calculator;
+    protected final AbstractFrameScoreCalculator calculator;
 
-    public FrameAbstract(int frameNumber, @NotNull FrameScoreCalculatorAbstract calculator) {
+    public AbstractFrame(int frameNumber, @NotNull AbstractFrameScoreCalculator calculator) {
         this.number = frameNumber;
         this.calculator = calculator;
     }
 
-    public abstract FrameAbstract roll(int hitPins);
+    public abstract AbstractFrame roll(int hitPins);
 
     public abstract boolean isLastFinished();
 

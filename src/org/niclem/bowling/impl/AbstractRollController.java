@@ -2,14 +2,14 @@ package org.niclem.bowling.impl;
 
 import java.util.List;
 
-abstract class RollControllerAbstract implements RollScoreCalculator, RollController {
+abstract class AbstractRollController implements RollScoreCalculator, RollController {
 
     protected static final int maxRolls = 2;
     protected static final int highScore = 10;
     static final int spareBonusRoll = 1;
     protected final List<Roll> rolls;
 
-    RollControllerAbstract(List<Roll> rolls) {
+    AbstractRollController(List<Roll> rolls) {
 
         this.rolls = rolls;
     }

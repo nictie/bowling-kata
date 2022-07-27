@@ -3,24 +3,24 @@ package org.niclem.bowling.impl;
 import org.jetbrains.annotations.NotNull;
 import org.niclem.bowling.Rules;
 
-final class Frame extends FrameAbstract {
-    private final FrameChainController chainController;
-    private FrameAbstract nextFrame;
+final class BasicFrame extends AbstractFrame {
+    private final BasicFrameChainController chainController;
+    private AbstractFrame nextFrame;
 
-    Frame(int number, Rules rules, @NotNull RollController rollController, @NotNull FrameScoreCalculator calculator) {
+    BasicFrame(int number, Rules rules, @NotNull RollController rollController, @NotNull BasicFrameScoreCalculator calculator) {
 
         super(number, calculator);
         nextFrame = new NullFrame();
-        chainController = new FrameChainController(this, rules, rollController, calculator);
+        chainController = new BasicFrameChainController(this, rules, rollController, calculator);
     }
 
     @Override
-    public FrameAbstract roll(int hitPins) {
+    public AbstractFrame roll(int hitPins) {
 
         return chainController.roll(hitPins);
     }
 
-    void setNextFrame(FrameAbstract nextFrame) {
+    void setNextFrame(AbstractFrame nextFrame) {
 
         this.nextFrame = nextFrame;
     }

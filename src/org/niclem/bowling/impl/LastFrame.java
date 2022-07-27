@@ -2,7 +2,7 @@ package org.niclem.bowling.impl;
 
 import org.jetbrains.annotations.NotNull;
 
-final class LastFrame extends FrameAbstract {
+final class LastFrame extends AbstractFrame {
 
     private final @NotNull RollController rollController;
 
@@ -13,9 +13,9 @@ final class LastFrame extends FrameAbstract {
     }
 
     @Override
-    public FrameAbstract roll(int hitPins) {
+    public AbstractFrame roll(int hitPins) {
 
-        FrameAbstract result;
+        AbstractFrame result;
 
         if (rollController.addRoll(hitPins, number)) {
             result = this;

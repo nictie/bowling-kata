@@ -3,14 +3,14 @@ package org.niclem.bowling.impl;
 import org.jetbrains.annotations.NotNull;
 import org.niclem.bowling.Rules;
 
-final class FrameChainController {
+final class BasicFrameChainController {
 
-    private final Frame parentFrame;
+    private final BasicFrame parentFrame;
     private final Rules rules;
     private final RollController rollController;
-    private final FrameScoreCalculator calculator;
+    private final BasicFrameScoreCalculator calculator;
 
-    FrameChainController(@NotNull Frame parentFrame,  Rules rules, @NotNull RollController rollController, @NotNull FrameScoreCalculator calculator) {
+    BasicFrameChainController(@NotNull BasicFrame parentFrame,  Rules rules, @NotNull RollController rollController, @NotNull BasicFrameScoreCalculator calculator) {
 
         this.parentFrame = parentFrame;
         this.rules = rules;
@@ -18,14 +18,14 @@ final class FrameChainController {
         this.calculator = calculator;
     }
 
-    FrameAbstract roll(int hitPins) {
+    AbstractFrame roll(int hitPins) {
 
-        FrameAbstract result;
+        AbstractFrame result;
 
         if (rollController.addRoll(hitPins, parentFrame.getNumber())) {
             result = parentFrame;
         } else {
-            FrameAbstract nextFrame;
+            AbstractFrame nextFrame;
             if (rules.isNextFrame(parentFrame.getNumber())) {
                 nextFrame = createNextFrame();
                 nextFrame.roll(hitPins);
@@ -43,17 +43,17 @@ final class FrameChainController {
         return result;
     }
 
-    private FrameAbstract createNextFrame() {
+    private AbstractFrame createNextFrame() {
 
         int nextFrameNumber = parentFrame.getNumber() + 1;
-        var nextRollCounter = new FrameRollController();
-        var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
+        var nextRollCounter = new BasicFrameRollController();
+        var nextScoreCalculator = new BasicFrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
         calculator.setNext(nextScoreCalculator);
 
-        return new Frame(nextFrameNumber, rules, nextRollCounter, nextScoreCalculator);
+        return new BasicFrame(nextFrameNumber, rules, nextRollCounter, nextScoreCalculator);
     }
 
-    private FrameAbstract createLastFrame() {
+    private AbstractFrame createLastFrame() {
 
         int nextFrameNumber = parentFrame.getNumber() + 1;
         var nextRollCounter = new LastFrameRollController();

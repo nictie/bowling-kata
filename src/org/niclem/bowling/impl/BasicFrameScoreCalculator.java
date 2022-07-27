@@ -1,18 +1,18 @@
 package org.niclem.bowling.impl;
 
-final class FrameScoreCalculator extends FrameScoreCalculatorAbstract {
+final class BasicFrameScoreCalculator extends AbstractFrameScoreCalculator {
 
-    private final FrameScoreCalculatorAbstract previousFrameScore;
-    private FrameScoreCalculatorAbstract nextFrameScore;
+    private final AbstractFrameScoreCalculator previousFrameScore;
+    private AbstractFrameScoreCalculator nextFrameScore;
 
-    FrameScoreCalculator(RollScoreCalculator controller, FrameScoreCalculatorAbstract previousFrameScore, int frameNumber) {
+    BasicFrameScoreCalculator(RollScoreCalculator controller, AbstractFrameScoreCalculator previousFrameScore, int frameNumber) {
 
         super(controller, frameNumber);
         this.previousFrameScore = previousFrameScore;
         this.nextFrameScore = new NullFrameScoreCalculator();
     }
 
-    public void setNext(FrameScoreCalculatorAbstract nextFrameScore) {
+    public void setNext(AbstractFrameScoreCalculator nextFrameScore) {
 
         this.nextFrameScore = nextFrameScore;
     }
@@ -27,7 +27,7 @@ final class FrameScoreCalculator extends FrameScoreCalculatorAbstract {
         return result[0];
     }
 
-    private void addBonusTo(int[] result, FrameScoreCalculatorAbstract frameScore) {
+    private void addBonusTo(int[] result, AbstractFrameScoreCalculator frameScore) {
 
         if (controller.isSpare()) {
             frameScore.addRollScoreTo(result, 0);

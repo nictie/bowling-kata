@@ -2,7 +2,7 @@ package org.niclem.bowling.impl;
 
 import java.util.ArrayList;
 
-final class LastFrameRollController extends RollControllerAbstract {
+final class LastFrameRollController extends AbstractRollController {
 
     private boolean isSpare = false;
 

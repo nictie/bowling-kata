@@ -1,18 +1,18 @@
 package org.niclem.bowling;
 
 import org.jetbrains.annotations.NotNull;
-import org.niclem.bowling.impl.FrameAbstract;
-import org.niclem.bowling.impl.GameScoreResultImpl;
+import org.niclem.bowling.impl.AbstractFrame;
+import org.niclem.bowling.impl.GameScoreResult;
 import org.niclem.bowling.impl.InitialFrame;
 
 public class GameController {
-    private final GameScoreResultImpl gameScoreResult;
-    private final FrameAbstract initialFrame;
-    private FrameAbstract currentFrame;
+    private final GameScoreResult gameScoreResult;
+    private final AbstractFrame initialFrame;
+    private AbstractFrame currentFrame;
 
     public GameController(@NotNull Rules rules) {
 
-        this.gameScoreResult = new GameScoreResultImpl(rules);
+        this.gameScoreResult = new GameScoreResult(rules);
         this.initialFrame = new InitialFrame(rules);
         this.currentFrame = initialFrame;
     }

@@ -2,9 +2,9 @@ package org.niclem.bowling.impl;
 
 import org.niclem.bowling.Rules;
 
-public class InitialFrame extends FrameAbstract {
+public class InitialFrame extends AbstractFrame {
 
-    private FrameAbstract nextFrame;
+    private AbstractFrame nextFrame;
     private final Rules rules;
 
     public InitialFrame(Rules rules) {
@@ -14,7 +14,7 @@ public class InitialFrame extends FrameAbstract {
     }
 
     @Override
-    public FrameAbstract roll(int hitPins) {
+    public AbstractFrame roll(int hitPins) {
 
         nextFrame = createNextFrame();
         nextFrame.roll(hitPins);
@@ -26,13 +26,13 @@ public class InitialFrame extends FrameAbstract {
         nextFrame.updateScore(gameScoreResult);
     }
 
-    private FrameAbstract createNextFrame() {
+    private AbstractFrame createNextFrame() {
 
-        var nextRollCounter = new FrameRollController();
+        var nextRollCounter = new BasicFrameRollController();
         int nextFrameNumber = number + 1;
-        var nextScoreCalculator = new FrameScoreCalculator(nextRollCounter, new NullFrameScoreCalculator(), nextFrameNumber);
+        var nextScoreCalculator = new BasicFrameScoreCalculator(nextRollCounter, new NullFrameScoreCalculator(), nextFrameNumber);
 
-        return new Frame(nextFrameNumber, rules, nextRollCounter, nextScoreCalculator);
+        return new BasicFrame(nextFrameNumber, rules, nextRollCounter, nextScoreCalculator);
     }
 
     @Override

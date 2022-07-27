@@ -1,6 +1,6 @@
 package org.niclem.bowling.impl;
 
-final class NullFrame extends FrameAbstract {
+final class NullFrame extends AbstractFrame {
 
     NullFrame() {
 
@@ -8,7 +8,7 @@ final class NullFrame extends FrameAbstract {
     }
 
     @Override
-    public Frame roll(int hitPins) {
+    public BasicFrame roll(int hitPins) {
 
         throw new UnsupportedOperationException("Null frame cannot be rolled.");
     }
