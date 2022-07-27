@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class LastFrame extends FrameAbstract {
 
-    private final LastFrameRollCalculator controller;
+    private final @NotNull FrameController controller;
 
-    public LastFrame(int frameNumber, @NotNull LastFrameRollCalculator controller, @NotNull LastFrameScoreCalculator scoreCalculator) {
+    public LastFrame(int frameNumber, @NotNull FrameController controller, @NotNull LastFrameScoreCalculator scoreCalculator) {
 
         super(frameNumber, scoreCalculator);
         this.controller = controller;

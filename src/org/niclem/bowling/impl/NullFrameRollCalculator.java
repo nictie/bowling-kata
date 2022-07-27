@@ -27,7 +27,14 @@ public class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
     }
 
     @Override
-    boolean addRoll(int hitPins, int frameNumber) {
+    public boolean isStrike() {
+
+        return false;
+    }
+
+    @Override
+    public boolean addRoll(int hitPins, int frameNumber) {
+
         return false;
     }
 
@@ -38,7 +45,7 @@ public class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
     }
 
     @Override
-    boolean isFull() {
+    public boolean isFull() {
 
         return false;
     }

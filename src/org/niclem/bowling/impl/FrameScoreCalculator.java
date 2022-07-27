@@ -27,13 +27,13 @@ public class FrameScoreCalculator extends FrameScoreCalculatorAbstract {
         return result[0];
     }
 
-    private void addBonusTo(int[] result, FrameScoreCalculatorAbstract nextFrameScore) {
+    private void addBonusTo(int[] result, FrameScoreCalculatorAbstract frameScore) {
 
         if (controller.isSpare()) {
-            nextFrameScore.addRollScoreTo(result, 0);
+            frameScore.addRollScoreTo(result, 0);
         } else if (controller.isStrike()) {
-            nextFrameScore.addRollScoreTo(result, 0);
-            nextFrameScore.addRollScoreTo(result, 1);
+            frameScore.addRollScoreTo(result, 0);
+            frameScore.addRollScoreTo(result, 1);
         }
     }
 

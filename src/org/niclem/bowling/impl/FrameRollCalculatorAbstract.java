@@ -2,7 +2,7 @@ package org.niclem.bowling.impl;
 
 import java.util.List;
 
-public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, RollScoreCalculator {
+public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, RollScoreCalculator, FrameController {
 
     protected static final int maxRolls = 2;
     protected static final int highScore = 10;
@@ -20,7 +20,8 @@ public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, Roll
         rolls.forEach(roll -> roll.updateScore(screenModelUpdater));
     }
 
-    boolean addRoll(int hitPins, int frameNumber) {
+    @Override
+    public boolean addRoll(int hitPins, int frameNumber) {
 
         boolean result = false;
         if (rolls.size() < getMaxRolls()) {
@@ -28,13 +29,6 @@ public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, Roll
              result = rolls.add(roll);
         }
         return result;
-    }
-
-    int getRollScore() {
-
-        int[] rollScore = new int[1];
-        addRollScoreTo(rollScore);
-        return rollScore[0];
     }
 
     @Override
@@ -60,8 +54,16 @@ public abstract class FrameRollCalculatorAbstract implements ScreenUpdater, Roll
         return rolls.size() < maxRolls && getRollScore() == highScore;
     }
 
-    boolean isFull() {
+    @Override
+    public boolean isFull() {
 
         return rolls.size() == getMaxRolls();
+    }
+
+    int getRollScore() {
+
+        int[] rollScore = new int[1];
+        addRollScoreTo(rollScore);
+        return rollScore[0];
     }
 }
