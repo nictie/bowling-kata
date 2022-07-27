@@ -2,8 +2,6 @@ package org.niclem.bowling.impl;
 
 import java.util.Collections;
 
-import org.niclem.bowling.ScreenModelUpdater;
-
 final class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
 
     NullFrameRollCalculator() {
@@ -18,7 +16,7 @@ final class NullFrameRollCalculator extends FrameRollCalculatorAbstract {
     }
 
     @Override
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+    public void updateScore(GameScoreResult gameScoreResult) {
 
     }
 

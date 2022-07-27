@@ -1,16 +1,19 @@
-package org.niclem.bowling;
+package org.niclem.bowling.impl;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class GameScoreUpdaterImpl implements ScreenModelUpdater, GameScore {
+import org.niclem.bowling.GameScore;
+import org.niclem.bowling.Rules;
+
+public final class GameScoreResultImpl implements GameScoreResult, GameScore {
 
     private final int[] frameScores;
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
 
-    public GameScoreUpdaterImpl(Rules rules) {
+    public GameScoreResultImpl(Rules rules) {
 
         numberOfFrames = rules.maxFrames();
         frameScores = initFrameScores(numberOfFrames);

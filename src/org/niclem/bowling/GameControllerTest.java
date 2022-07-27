@@ -17,9 +17,8 @@ public class GameControllerTest {
     void setUp() {
 
         Rules rules = new Rules(2);
-        GameScoreUpdaterImpl gameScoreUpdater = new GameScoreUpdaterImpl(rules);
-        this.gameController = new GameController(gameScoreUpdater, rules);
-        this.gameScore = gameScoreUpdater;
+        this.gameController = new GameController( rules);
+        this.gameScore = gameController.getScore();
     }
 
     @Test
@@ -34,8 +33,8 @@ public class GameControllerTest {
     void play() {
 
         Rules rules = new Rules(4);
-        GameScoreUpdaterImpl screenModel = new GameScoreUpdaterImpl(rules);
-        var gameController = new GameController(screenModel, rules);
+        var gameController = new GameController(rules);
+        var screenModel = gameController.getScore();
 
         gameController.registerRoll(10);
         assertThat(screenModel.getFrameScore(1)).as(gameController.toString()).isEqualTo(10);
@@ -58,9 +57,9 @@ public class GameControllerTest {
     void screenModel_initialized() {
 
         //assertThat(screenModel.getTotalScore()).as(screenModel.toString()).isEqualTo(org.niclem.bowling.ScreenModel.NO_SCORE);
-        assertThat(gameScore.getFrameScore(1)).as(gameScore.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
-        assertThat(gameScore.getRollScore(1, 1)).as(gameScore.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
-        assertThat(gameScore.getRollScore(1, 2)).as(gameScore.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
+        assertThat(gameScore.getFrameScore(1)).as(gameScore.toString()).isEqualTo(GameScore.NO_SCORE);
+        assertThat(gameScore.getRollScore(1, 1)).as(gameScore.toString()).isEqualTo(GameScore.NO_SCORE);
+        assertThat(gameScore.getRollScore(1, 2)).as(gameScore.toString()).isEqualTo(GameScore.NO_SCORE);
     }
 
     @Test
@@ -70,7 +69,7 @@ public class GameControllerTest {
         gameController.registerRoll(1);
 
         assertThat(gameScore.getRollScore(1, 1)).as(gameController.toString()).isEqualTo(1);
-        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(ScreenModelUpdater.NO_SCORE);
+        assertThat(gameScore.getRollScore(1, 2)).as(gameController.toString()).isEqualTo(GameScore.NO_SCORE);
         assertThat(gameScore.getFrameScore(1)).as(gameController.toString()).isEqualTo(1);
     }
 

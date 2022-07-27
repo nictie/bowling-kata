@@ -1,8 +1,6 @@
 package org.niclem.bowling.impl;
 
-import org.niclem.bowling.ScreenModelUpdater;
-
-final class Roll implements ScreenUpdater {
+final class Roll implements GameScoreUpdater {
 
     private final int frameNumber;
     private final int number;
@@ -16,9 +14,9 @@ final class Roll implements ScreenUpdater {
     }
 
     @Override
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+    public void updateScore(GameScoreResult gameScoreResult) {
 
-        screenModelUpdater.updateRollsOfFrame(frameNumber, number, score);
+        gameScoreResult.updateRollsOfFrame(frameNumber, number, score);
     }
 
     public void addScoreTo(int[] result) {

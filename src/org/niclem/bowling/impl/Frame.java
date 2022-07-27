@@ -2,7 +2,6 @@ package org.niclem.bowling.impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.niclem.bowling.Rules;
-import org.niclem.bowling.ScreenModelUpdater;
 
 final class Frame extends FrameAbstract {
     private final FrameController controller;
@@ -27,10 +26,10 @@ final class Frame extends FrameAbstract {
     }
 
     @Override
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+    public void updateScore(GameScoreResult gameScoreResult) {
 
-        calculator.updateScore(screenModelUpdater);
-        nextFrame.updateScore(screenModelUpdater);
+        calculator.updateScore(gameScoreResult);
+        nextFrame.updateScore(gameScoreResult);
     }
 
     @Override

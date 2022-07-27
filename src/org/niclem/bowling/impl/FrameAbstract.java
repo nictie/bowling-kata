@@ -2,7 +2,7 @@ package org.niclem.bowling.impl;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class FrameAbstract implements ScreenUpdater {
+public abstract class FrameAbstract implements GameScoreUpdater {
 
     protected final int number;
     protected final FrameScoreCalculatorAbstract calculator;
@@ -16,7 +16,7 @@ public abstract class FrameAbstract implements ScreenUpdater {
 
     public abstract boolean isLastFinished();
 
-    public int getNumber() {
+    int getNumber() {
 
         return number;
     }

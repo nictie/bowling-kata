@@ -2,9 +2,7 @@ package org.niclem.bowling.impl;
 
 import java.util.List;
 
-import org.niclem.bowling.ScreenModelUpdater;
-
-abstract class FrameRollCalculatorAbstract implements ScreenUpdater, RollScoreCalculator, FrameRollController {
+abstract class FrameRollCalculatorAbstract implements GameScoreUpdater, RollScoreCalculator, FrameRollController {
 
     protected static final int maxRolls = 2;
     protected static final int highScore = 10;
@@ -17,9 +15,9 @@ abstract class FrameRollCalculatorAbstract implements ScreenUpdater, RollScoreCa
     }
 
     @Override
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+    public void updateScore(GameScoreResult gameScoreResult) {
 
-        rolls.forEach(roll -> roll.updateScore(screenModelUpdater));
+        rolls.forEach(roll -> roll.updateScore(gameScoreResult));
     }
 
     @Override

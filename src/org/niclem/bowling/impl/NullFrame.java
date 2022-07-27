@@ -1,7 +1,5 @@
 package org.niclem.bowling.impl;
 
-import org.niclem.bowling.ScreenModelUpdater;
-
 final class NullFrame extends FrameAbstract {
 
     NullFrame() {
@@ -16,7 +14,7 @@ final class NullFrame extends FrameAbstract {
     }
 
     @Override
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+    public void updateScore(GameScoreResult gameScoreResult) {
 
     }
 

@@ -1,7 +1,6 @@
 package org.niclem.bowling.impl;
 
 import org.niclem.bowling.Rules;
-import org.niclem.bowling.ScreenModelUpdater;
 
 public class InitialFrame extends FrameAbstract {
 
@@ -22,9 +21,9 @@ public class InitialFrame extends FrameAbstract {
         return nextFrame;
     }
 
-    public void updateScore(ScreenModelUpdater screenModelUpdater) {
+    public void updateScore(GameScoreResult gameScoreResult) {
 
-        nextFrame.updateScore(screenModelUpdater);
+        nextFrame.updateScore(gameScoreResult);
     }
 
     private FrameAbstract createNextFrame() {
