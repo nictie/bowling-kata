@@ -7,7 +7,7 @@ final class BasicFrame extends AbstractFrame {
     private final BasicFrameChainController chainController;
     private AbstractFrame nextFrame;
 
-    BasicFrame(int number, Rules rules, @NotNull RollController rollController, @NotNull BasicFrameScoreCalculator calculator) {
+    /* package */ BasicFrame(final int number, final Rules rules, @NotNull final RollController rollController, final @NotNull BasicFrameScoreCalculator calculator) {
 
         super(number, calculator);
         nextFrame = new NullFrame();
@@ -15,18 +15,18 @@ final class BasicFrame extends AbstractFrame {
     }
 
     @Override
-    public AbstractFrame roll(int hitPins) {
+    public AbstractFrame roll(final int hitPins) {
 
         return chainController.roll(hitPins);
     }
 
-    void setNextFrame(AbstractFrame nextFrame) {
+    /* package */ void setNextFrame(final AbstractFrame nextFrame) {
 
         this.nextFrame = nextFrame;
     }
 
     @Override
-    public void updateScore(GameScoreImpl gameScore) {
+    public void updateScore(final GameScoreImpl gameScore) {
 
         calculator.updateScore(gameScore);
         nextFrame.updateScore(gameScore);

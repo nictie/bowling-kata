@@ -9,23 +9,23 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
     protected static final int SPARE_BONUS_ROLL = 1;
     protected final List<Roll> rolls;
 
-    AbstractRollController(List<Roll> rolls) {
+    /* package */ AbstractRollController(final List<Roll> rolls) {
 
         this.rolls = rolls;
     }
 
     @Override
-    public final void updateScore(GameScoreImpl gameScore) {
+    public final void updateScore(final GameScoreImpl gameScore) {
 
         rolls.forEach(roll -> roll.updateScore(gameScore));
     }
 
     @Override
-    public final boolean addRoll(int hitPins, int frameNumber) {
+    public final boolean addRoll(final int hitPins, final int frameNumber) {
 
         boolean result = false;
         if (rolls.size() < calculateMaxRolls()) {
-            Roll roll = new Roll(frameNumber, rolls.size() + 1, hitPins);
+            final Roll roll = new Roll(frameNumber, rolls.size() + 1, hitPins);
             result = rolls.add(roll);
         }
         return result;
@@ -34,7 +34,7 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
     protected abstract int calculateMaxRolls();
 
     @Override
-    public final void addRollScoreTo(int index, int... result) {
+    public final void addRollScoreTo(final int index, final int... result) {
 
         if (rolls.size() < index + 1) {
             return;
@@ -43,7 +43,7 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
     }
 
     @Override
-    public final void addRollScoreTo(int ... result) {
+    public final void addRollScoreTo(final int ... result) {
 
         rolls.forEach(roll -> roll.addScoreTo(result));
     }
@@ -66,9 +66,9 @@ abstract class AbstractRollController implements RollScoreCalculator, RollContro
         return rolls.size() == calculateMaxRolls();
     }
 
-    final int getRollScore() {
+    protected final int getRollScore() {
 
-        int[] rollScore = new int[1];
+        final int[] rollScore = new int[1];
         addRollScoreTo(rollScore);
         return rollScore[0];
     }

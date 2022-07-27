@@ -2,22 +2,18 @@ package org.niclem.bowling.impl;
 
 final class NullFrameRollScoreCalculator implements RollScoreCalculator {
 
-    NullFrameRollScoreCalculator() {
+    @Override
+    public void updateScore(final GameScoreImpl gameScore) {
 
     }
 
     @Override
-    public void updateScore(GameScoreImpl gameScore) {
+    public void addRollScoreTo(final int index, final int... result) {
 
     }
 
     @Override
-    public void addRollScoreTo(int index, int... result) {
-
-    }
-
-    @Override
-    public void addRollScoreTo(int... result) {
+    public void addRollScoreTo(final int... result) {
 
     }
 

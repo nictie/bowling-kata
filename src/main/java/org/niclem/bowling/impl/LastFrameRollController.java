@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 final class LastFrameRollController extends AbstractRollController {
 
-    private boolean isSpare = false;
+    private boolean isSpare;
 
-    LastFrameRollController() {
+    /* package */ LastFrameRollController() {
 
         super(new ArrayList<>());
     }

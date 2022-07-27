@@ -10,7 +10,7 @@ final class BasicFrameChainController {
     private final RollController rollController;
     private final BasicFrameScoreCalculator calculator;
 
-    BasicFrameChainController(@NotNull BasicFrame parentFrame,  Rules rules, @NotNull RollController rollController, @NotNull BasicFrameScoreCalculator calculator) {
+    /* package */ BasicFrameChainController(@NotNull final BasicFrame parentFrame, final Rules rules, @NotNull final RollController rollController, final @NotNull BasicFrameScoreCalculator calculator) {
 
         this.parentFrame = parentFrame;
         this.rules = rules;
@@ -18,7 +18,7 @@ final class BasicFrameChainController {
         this.calculator = calculator;
     }
 
-    AbstractFrame roll(int hitPins) {
+    /* package */ AbstractFrame roll(final int hitPins) {
 
         AbstractFrame result;
 
@@ -45,9 +45,9 @@ final class BasicFrameChainController {
 
     private AbstractFrame createNextFrame() {
 
-        int nextFrameNumber = parentFrame.getNumber() + 1;
-        var nextRollCounter = new BasicFrameRollController();
-        var nextScoreCalculator = new BasicFrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
+        final int nextFrameNumber = parentFrame.getNumber() + 1;
+        final var nextRollCounter = new BasicFrameRollController();
+        final var nextScoreCalculator = new BasicFrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
         calculator.setNext(nextScoreCalculator);
 
         return new BasicFrame(nextFrameNumber, rules, nextRollCounter, nextScoreCalculator);
@@ -55,9 +55,9 @@ final class BasicFrameChainController {
 
     private AbstractFrame createLastFrame() {
 
-        int nextFrameNumber = parentFrame.getNumber() + 1;
-        var nextRollCounter = new LastFrameRollController();
-        var nextScoreCalculator = new LastFrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
+        final int nextFrameNumber = parentFrame.getNumber() + 1;
+        final var nextRollCounter = new LastFrameRollController();
+        final var nextScoreCalculator = new LastFrameScoreCalculator(nextRollCounter, calculator, nextFrameNumber);
         calculator.setNext(nextScoreCalculator);
 
         return new LastFrame(nextFrameNumber, nextRollCounter, nextScoreCalculator);

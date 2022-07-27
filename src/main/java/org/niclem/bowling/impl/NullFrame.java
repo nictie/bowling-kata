@@ -2,19 +2,19 @@ package org.niclem.bowling.impl;
 
 final class NullFrame extends AbstractFrame {
 
-    NullFrame() {
+    /* package */ NullFrame() {
 
         super(-1, new NullFrameScoreCalculator());
     }
 
     @Override
-    public BasicFrame roll(int hitPins) {
+    public BasicFrame roll(final int hitPins) {
 
         throw new UnsupportedOperationException("Null frame cannot be rolled.");
     }
 
     @Override
-    public void updateScore(GameScoreImpl gameScore) {
+    public void updateScore(final GameScoreImpl gameScore) {
 
     }
 

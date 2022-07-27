@@ -7,12 +7,12 @@ abstract class AbstractFrame implements Frame {
     protected final int number;
     protected final AbstractFrameScoreCalculator calculator;
 
-    public AbstractFrame(int frameNumber, @NotNull AbstractFrameScoreCalculator calculator) {
+    public AbstractFrame(final int frameNumber, @NotNull final AbstractFrameScoreCalculator calculator) {
         this.number = frameNumber;
         this.calculator = calculator;
     }
 
-    int getNumber() {
+    /* package */ final int getNumber() {
 
         return number;
     }

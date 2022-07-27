@@ -11,14 +11,14 @@ public class GameController {
     private final Frame initialFrame;
     private Frame currentFrame;
 
-    public GameController(@NotNull Rules rules) {
+    public GameController(@NotNull final Rules rules) {
 
         this.gameScore = new GameScoreImpl(rules);
         this.initialFrame = create(rules);
         this.currentFrame = initialFrame;
     }
 
-    public void play(int hitPins) {
+    public void play(final int hitPins) {
 
         currentFrame = currentFrame.roll(hitPins);
         initialFrame.updateScore(gameScore);

@@ -6,14 +6,14 @@ final class LastFrame extends AbstractFrame {
 
     private final @NotNull RollController rollController;
 
-    LastFrame(int frameNumber, @NotNull RollController rollController, @NotNull LastFrameScoreCalculator scoreCalculator) {
+    /* package */ LastFrame(final int frameNumber, @NotNull final RollController rollController, @NotNull final LastFrameScoreCalculator scoreCalculator) {
 
         super(frameNumber, scoreCalculator);
         this.rollController = rollController;
     }
 
     @Override
-    public AbstractFrame roll(int hitPins) {
+    public AbstractFrame roll(final int hitPins) {
 
         AbstractFrame result;
 
@@ -26,7 +26,7 @@ final class LastFrame extends AbstractFrame {
     }
 
     @Override
-    public void updateScore(GameScoreImpl gameScore) {
+    public void updateScore(final GameScoreImpl gameScore) {
 
         calculator.updateScore(gameScore);
     }

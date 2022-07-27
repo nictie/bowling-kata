@@ -7,30 +7,30 @@ final class InitialFrame extends AbstractFrame {
     private AbstractFrame nextFrame;
     private final Rules rules;
 
-    InitialFrame(Rules rules) {
+    /* package */ InitialFrame(final Rules rules) {
 
         super(0, new NullFrameScoreCalculator());
         this.rules = rules;
     }
 
     @Override
-    public AbstractFrame roll(int hitPins) {
+    public AbstractFrame roll(final int hitPins) {
 
         nextFrame = createNextFrame();
         nextFrame.roll(hitPins);
         return nextFrame;
     }
 
-    public void updateScore(GameScoreImpl gameScore) {
+    public void updateScore(final GameScoreImpl gameScore) {
 
         nextFrame.updateScore(gameScore);
     }
 
     private AbstractFrame createNextFrame() {
 
-        var nextRollCounter = new BasicFrameRollController();
-        int nextFrameNumber = number + 1;
-        var nextScoreCalculator = new BasicFrameScoreCalculator(nextRollCounter, new NullFrameScoreCalculator(), nextFrameNumber);
+        final var nextRollCounter = new BasicFrameRollController();
+        final int nextFrameNumber = number + 1;
+        final var nextScoreCalculator = new BasicFrameScoreCalculator(nextRollCounter, new NullFrameScoreCalculator(), nextFrameNumber);
 
         return new BasicFrame(nextFrameNumber, rules, nextRollCounter, nextScoreCalculator);
     }

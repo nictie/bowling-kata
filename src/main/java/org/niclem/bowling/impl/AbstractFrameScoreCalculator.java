@@ -5,14 +5,14 @@ abstract class AbstractFrameScoreCalculator implements GameScoreUpdater {
     protected final RollScoreCalculator controller;
     private final int number;
 
-    AbstractFrameScoreCalculator(RollScoreCalculator controller, int frameNumber) {
+    /* package */ AbstractFrameScoreCalculator(final RollScoreCalculator controller, final  int frameNumber) {
 
         this.controller = controller;
         this.number = frameNumber;
     }
 
     @Override
-    public void updateScore(GameScoreImpl gameScore) {
+    public void updateScore(final GameScoreImpl gameScore) {
 
         gameScore.updateFrameScore(number, calculateScore());
         controller.updateScore(gameScore);
@@ -20,12 +20,12 @@ abstract class AbstractFrameScoreCalculator implements GameScoreUpdater {
 
     protected abstract int calculateScore();
 
-    final void addFrameScoreTo(int ... result) {
+    protected final void addFrameScoreTo(int ... result) {
 
         result[0] = result[0] + calculateScore();
     }
 
-    final void addRollScoreTo(int index, int ... result) {
+    protected final void addRollScoreTo(final int index, final int ... result) {
 
         controller.addRollScoreTo(index, result);
     }

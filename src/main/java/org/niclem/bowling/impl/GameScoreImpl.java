@@ -13,14 +13,14 @@ public final class GameScoreImpl implements GameScore {
     private final Map<Integer, int[]> rollsPerFrame;
     private final int numberOfFrames;
 
-    public GameScoreImpl(Rules rules) {
+    public GameScoreImpl(final Rules rules) {
 
         numberOfFrames = rules.maxFrames();
         frameScores = initFrameScores(numberOfFrames);
         rollsPerFrame = initRollsPerFrameScore(numberOfFrames);
     }
 
-    public void updateFrameScore(int number, int score) {
+    public void updateFrameScore(final int number, final int score) {
 
         final int frameIndex = number -1;
         if (frameIndex < 0 || frameIndex >= frameScores.length) {
@@ -29,28 +29,28 @@ public final class GameScoreImpl implements GameScore {
         frameScores[frameIndex] = score;
     }
 
-    public void updateRollsOfFrame(int frameNumber, int rollNumber, int score) {
+    public void updateRollsOfFrame(final int frameNumber, final int rollNumber, final int score) {
 
         rollsPerFrame.get(frameNumber - 1)[rollNumber - 1] = score;
     }
 
     @Override
-    public Integer getFrameScore(int frameNumber) {
+    public Integer getFrameScore(final int frameNumber) {
 
         return frameScores[frameNumber - 1];
     }
 
     @Override
-    public Integer getRollScore(int frameNumber, int rollNumber) {
+    public Integer getRollScore(final int frameNumber, final int rollNumber) {
 
         return rollsPerFrame.get(frameNumber - 1)[rollNumber - 1];
     }
 
-    private Map<Integer, int[]> initRollsPerFrameScore(int numberOfFrames) {
+    private Map<Integer, int[]> initRollsPerFrameScore(final int numberOfFrames) {
 
-        Map<Integer, int[]> result = new LinkedHashMap<>();
+        final Map<Integer, int[]> result = new LinkedHashMap<>();
         for (int i = 0; i < numberOfFrames; i++) {
-            int[] rollScore = new int[] { NO_SCORE, NO_SCORE };
+            int[] rollScore = { NO_SCORE, NO_SCORE };
             if (i == numberOfFrames - 1) {
                 rollScore = new int[] { NO_SCORE, NO_SCORE, NO_SCORE };
                 result.put(i, rollScore);
@@ -60,9 +60,9 @@ public final class GameScoreImpl implements GameScore {
         return result;
     }
 
-    private int[] initFrameScores(int numberOfFrames) {
+    private int[] initFrameScores(final int numberOfFrames) {
 
-        final int[] frameScore;
+        int[] frameScore;
         frameScore = new int[numberOfFrames];
         for (int i = 0; i < numberOfFrames; i++) {
             frameScore[i] = NO_SCORE;

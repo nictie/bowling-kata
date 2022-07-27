@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 final class BasicFrameRollController extends AbstractRollController {
 
-    BasicFrameRollController() {
+    /* package */ BasicFrameRollController() {
 
         super(new ArrayList<>());
     }

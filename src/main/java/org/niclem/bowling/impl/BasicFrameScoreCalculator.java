@@ -5,14 +5,14 @@ final class BasicFrameScoreCalculator extends AbstractFrameScoreCalculator {
     private final AbstractFrameScoreCalculator previousFrameScore;
     private AbstractFrameScoreCalculator nextFrameScore;
 
-    BasicFrameScoreCalculator(RollScoreCalculator controller, AbstractFrameScoreCalculator previousFrameScore, int frameNumber) {
+    /* package */ BasicFrameScoreCalculator(final RollScoreCalculator controller,final  AbstractFrameScoreCalculator previousFrameScore, final int frameNumber) {
 
         super(controller, frameNumber);
         this.previousFrameScore = previousFrameScore;
         this.nextFrameScore = new NullFrameScoreCalculator();
     }
 
-    public void setNext(AbstractFrameScoreCalculator nextFrameScore) {
+    public void setNext(final AbstractFrameScoreCalculator nextFrameScore) {
 
         this.nextFrameScore = nextFrameScore;
     }
@@ -27,7 +27,7 @@ final class BasicFrameScoreCalculator extends AbstractFrameScoreCalculator {
         return result[0];
     }
 
-    private void addBonusTo(int[] result, AbstractFrameScoreCalculator frameScore) {
+    private void addBonusTo(final int[] result, final AbstractFrameScoreCalculator frameScore) {
 
         if (controller.isSpare()) {
             frameScore.addRollScoreTo(0, result);

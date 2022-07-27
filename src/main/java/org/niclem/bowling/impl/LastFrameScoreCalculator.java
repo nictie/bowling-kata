@@ -4,7 +4,7 @@ final class LastFrameScoreCalculator extends AbstractFrameScoreCalculator {
 
     private final AbstractFrameScoreCalculator previousFrameScore;
 
-    LastFrameScoreCalculator(RollScoreCalculator rollScoreCalculator, AbstractFrameScoreCalculator previousFrameScore, int frameNumber) {
+    /* package */ LastFrameScoreCalculator(final RollScoreCalculator rollScoreCalculator, final AbstractFrameScoreCalculator previousFrameScore, final int frameNumber) {
 
         super(rollScoreCalculator, frameNumber);
         this.previousFrameScore = previousFrameScore;

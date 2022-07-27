@@ -6,7 +6,7 @@ final class Roll implements GameScoreUpdater {
     private final int number;
     private final int score;
 
-    Roll(int frameNumber, int number, int score) {
+    /* package */ Roll(final int frameNumber,final  int number, final int score) {
 
         this.frameNumber = frameNumber;
         this.number = number;
@@ -14,7 +14,7 @@ final class Roll implements GameScoreUpdater {
     }
 
     @Override
-    public void updateScore(GameScoreImpl gameScore) {
+    public void updateScore(final GameScoreImpl gameScore) {
 
         gameScore.updateRollsOfFrame(frameNumber, number, score);
     }
